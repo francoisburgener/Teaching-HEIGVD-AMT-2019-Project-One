@@ -1,4 +1,4 @@
-package ch.heigvd.amt.livecoding.presentation;
+package ch.heigvd.amt.projet.presentation;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/registration")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/signin")
+public class SignInServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    req.getRequestDispatcher("/WEB-INF/pages/register.jsp").forward(req, resp);
+    req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
   }
 
   @Override
