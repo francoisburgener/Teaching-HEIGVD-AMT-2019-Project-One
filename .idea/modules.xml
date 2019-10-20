@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AMT-Projet/AMT-Projet.iml" filepath="$PROJECT_DIR$/AMT-Projet/AMT-Projet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Teaching-HEIGVD-AMT-2019-Project-One.iml" filepath="$PROJECT_DIR$/.idea/Teaching-HEIGVD-AMT-2019-Project-One.iml" />
+    </modules>
+  </component>
+</project>
