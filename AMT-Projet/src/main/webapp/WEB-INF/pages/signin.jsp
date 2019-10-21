@@ -37,7 +37,7 @@
           </header>
           <div class="card-content">
             <!-- sign in form -->
-            <div id="sign-in-form" class="content">
+            <form method="post" action="signin" id="sign-in-form" class="content">
               <!-- username-->
               <div class="field">
                 <label class="label">Username</label>
@@ -71,16 +71,17 @@
               <div class="control">
                 <button class="button is-link">Sign in</button>
               </div>
-            </div>
+            </form>
 
-            <div id="register-form" class="content" style="display: none">
+
             <!-- register form -->
-            <div id="sign-in-form" class="content">
+              <form method="post" action="register" id="register-form" class="content" style="display: none">
               <!-- username-->
               <div class="field">
                 <label class="label">Username</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
+                    name ="username"
                     class="input is-success"
                     type="text"
                     placeholder="Enter your username here"
@@ -95,11 +96,11 @@
                 <p class="help is-success">This username is available</p>
               </div>
 
-            <!-- username-->
+            <!-- fullname -->
             <div class="field">
                 <label class="label">Fullname</label>
                 <div class="control ">
-                    <input class="input" type="text" placeholder="Enter your full name here" />
+                    <input name ="fullname" class="input" type="text" placeholder="Enter your full name here" />
                 </div>
             </div>
 
@@ -107,7 +108,7 @@
             <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
+                    <input name ="email" class="input is-danger" type="email" placeholder="Email input" value="hello@">
                     <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                     </span>
@@ -122,7 +123,7 @@
               <div class="field">
                 <label class="label">Password</label>
                 <p class="control has-icons-left">
-                  <input class="input" type="password" placeholder="Enter your password here" />
+                  <input name ="password" class="input" type="password" placeholder="Enter your password here" />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
@@ -132,7 +133,7 @@
             <div class="field">
                 <label class="label">Confirm password</label>
                 <p class="control has-icons-left">
-                    <input class="input" type="password" placeholder="Confirm your password" />
+                    <input name ="confirm-password" class="input" type="password" placeholder="Confirm your password" />
                     <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                     </span>
@@ -142,7 +143,7 @@
               <div class="control">
                 <button class="button is-link">Submit</button>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -153,6 +154,10 @@
       const register = document.getElementById("register-form");
       const signin = document.getElementById("sign-in-form");
       let signinActive = true;
+
+      window.onload = function () {
+          tabSwitch(${tabSelect});
+      }
 
       function tabSwitch(choice) {
         if (choice) {

@@ -40,12 +40,30 @@ public class UsersManager implements UsersManagerLocal{
                 String email = rs.getString("email");
                 String password = rs.getString("password");
 
-                users.add(new User(id,username,fullname,email,password));
+                users.add(new User(username,fullname,email,password));
             }
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
         }
         return users;
+    }
+
+    @Override
+    public void createUser(User user) {
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?)");
+            pstmt.setString(1,user.getUsername());
+            pstmt.setString(2,user.getFullname());
+            pstmt.setString(3,user.getEmail());
+            pstmt.setString(4,user.getPassword());
+            pstmt.executeUpdate();
+
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+        }
+
     }
 }

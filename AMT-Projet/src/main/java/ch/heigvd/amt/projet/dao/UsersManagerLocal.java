@@ -8,4 +8,5 @@ import java.util.List;
 @Local
 public interface UsersManagerLocal {
     public List<User> findAllUsers();
+    public void createUser(User user);
 }

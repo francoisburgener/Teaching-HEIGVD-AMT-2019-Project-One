@@ -24,7 +24,7 @@ USE `amt-db` ;
 DROP TABLE IF EXISTS `amt-db`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `amt-db`.`User` (
-  `idUser` INT NOT NULL,
+  `idUser` INT NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(45) NULL,
   `fullname` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
@@ -39,7 +39,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `amt-db`.`City` ;
 
 CREATE TABLE IF NOT EXISTS `amt-db`.`City` (
-  `idCity` INT NOT NULL,
+  `idCity` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
   PRIMARY KEY (`idCity`))
 ENGINE = InnoDB;
