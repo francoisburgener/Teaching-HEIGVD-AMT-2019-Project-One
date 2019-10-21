@@ -10,7 +10,7 @@ services:
      - "4848:4848"
      - "9009:9009"
      - "8181:8181"
-    # Link mariadb container in the container payara when we use the host "db"
+    # Link mysql container in the container payara when we use the host "db"
     links:
       - mysql:db
 

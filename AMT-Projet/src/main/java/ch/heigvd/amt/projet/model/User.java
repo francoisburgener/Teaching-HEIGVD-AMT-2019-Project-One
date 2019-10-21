@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -7,12 +8,11 @@ import lombok.Getter;
 @Builder
 @Getter
 @EqualsAndHashCode
+@AllArgsConstructor
 public class User {
-
   private int id;
   private String username;
-  private String firstName;
-  private String lastName;
+  private String fullname;
   private String email;
-
+  private String password;
 }
