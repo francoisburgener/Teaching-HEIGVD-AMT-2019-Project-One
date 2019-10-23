@@ -1,7 +1,9 @@
 package ch.heigvd.amt.projet.web;
 
+import ch.heigvd.amt.projet.dao.UsersManagerLocal;
 import ch.heigvd.amt.projet.model.User;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,9 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/signin", name = "SignInServlet")
 public class SignInServlet extends HttpServlet {
+
+    @EJB
+    private UsersManagerLocal userManager;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -25,6 +30,11 @@ public class SignInServlet extends HttpServlet {
 
         //TODO Check if password matches with the username
 
-        request.getRequestDispatcher("/WEB-INF/pages/bonjour.jsp").forward(request, response);
+        if(userManager.signIn(username,password)) {
+            //TODO Do something more ?
+            request.getRequestDispatcher("/WEB-INF/pages/bonjour.jsp").forward(request, response);
+        }else {
+            // TODO Send error to the page
+        }
     }
 }

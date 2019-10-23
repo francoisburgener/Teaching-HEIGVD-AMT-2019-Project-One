@@ -9,6 +9,7 @@ import java.io.IOException;
 
 @WebServlet( urlPatterns = "/bonjour", name = "BonjourServlet")
 public class BonjourServlet extends HttpServlet {
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.getRequestDispatcher("/WEB-INF/pages/bonjour.jsp").forward(request, response);

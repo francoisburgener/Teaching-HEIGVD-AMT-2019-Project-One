@@ -5,6 +5,9 @@ import ch.heigvd.amt.projet.model.User;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +33,7 @@ public class UsersManager implements UsersManagerLocal{
 
             System.out.println("Schema : " + connection.getSchema());
 
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User");
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User;");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
@@ -53,17 +56,69 @@ public class UsersManager implements UsersManagerLocal{
     public void createUser(User user) {
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?)");
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?);");
             pstmt.setString(1,user.getUsername());
             pstmt.setString(2,user.getFullname());
             pstmt.setString(3,user.getEmail());
-            pstmt.setString(4,user.getPassword());
+
+            String hashedPassWord = hashPassword(user.getPassword());
+            pstmt.setString(4,hashedPassWord);
             pstmt.executeUpdate();
 
             connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
         }
-
     }
+
+    @Override
+    public boolean checkPassword(String password, String confirmPassowrd) {
+        return password.equals(confirmPassowrd);
+    }
+
+    @Override
+    public boolean signIn(String username, String password) {
+
+        Boolean check = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT password FROM User WHERE username = '" + username + "'");
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                String hashedPassword = rs.getString("password");
+                check = verifyHashedPassword(hashedPassword,password);
+            }
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    private String hashPassword(String password) {
+        String hashedPassword = null;
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder();
+            for(int i=0; i< bytes.length ;i++){
+                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            hashedPassword = sb.toString();
+        }
+        catch (NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+
+
+        return hashedPassword;
+    }
+
+    private boolean verifyHashedPassword(String hash, String attempt) {
+        String generateHash = hashPassword(attempt);
+        return hash.equals(generateHash);
+    }
+
+
 }
