@@ -27,15 +27,18 @@ public class RegisterServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+    // TODO verify all field are not empty
     String username = req.getParameter("username");
     String fullname = req.getParameter("fullname");
     String email = req.getParameter("email");
+
+    //TODO Verify password and hash before store in database
     String password = req.getParameter("password");
     String confirmPassowrd = req.getParameter("confirm-password");
 
     User user = new User(username,fullname,email,password);
     userManager.createUser(user);
 
-    req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
+    req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp); // TODO Remove ?
   }
 }
