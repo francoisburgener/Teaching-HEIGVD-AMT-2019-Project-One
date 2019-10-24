@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 
 @WebServlet(urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
@@ -33,18 +34,35 @@ public class RegisterServlet extends HttpServlet {
         String password = req.getParameter("password");
         String confirmPassowrd = req.getParameter("confirm-password");
 
-        if( !username.isEmpty() && !fullname.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirmPassowrd.isEmpty()){
-          if(userManager.checkPassword(password,confirmPassowrd)){
-            User user = new User(username, fullname, email, password);
-            userManager.createUser(user);
-            req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp); // TODO Remove ?
-          }else{
-            //TODO Send error to the page
-          }
-        }else{
-          //TODO Send error to the page
+        HashMap<String,String> errors = new HashMap<>();
+        if(username.trim().isEmpty()){
+            errors.put("username","Username cannot be empty");
+        }else if(!userManager.isUsernameFree(username)){
+            errors.put("username","Username is already used");
         }
 
+        if(fullname.trim().isEmpty()){
+            errors.put("fullname","Fullname cannot be empty");
 
+        }
+
+        if(email.trim().isEmpty()){
+            errors.put("email","Email cannot be empty");
+        }
+
+        if(password.trim().isEmpty() && confirmPassowrd.trim().isEmpty() && userManager.checkPassword(password,confirmPassowrd)){
+            errors.put("password","Passwords cannot be empty or not match");
+        }
+
+        if(errors.isEmpty()){
+            User user = new User(username, fullname, email, password);
+            userManager.createUser(user);
+            resp.sendRedirect("signin");
+
+        }else{
+            req.setAttribute("errors",errors);
+            req.setAttribute("tabSelect", false);
+            req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
+        }
     }
 }

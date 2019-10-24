@@ -96,6 +96,25 @@ public class UsersManager implements UsersManagerLocal{
         return check;
     }
 
+    @Override
+    public boolean isUsernameFree(String username) {
+        Boolean check = true;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User WHERE username=?");
+            pstmt.setObject(1, username);
+            ResultSet rs = pstmt.executeQuery();
+
+            check = !rs.next();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return check;
+    }
+
     private String hashPassword(String password) {
         String hashedPassword = null;
         try {

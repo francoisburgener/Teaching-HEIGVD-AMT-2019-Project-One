@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -72,6 +73,9 @@
               <div class="control">
                 <button class="button is-link">Sign in</button>
               </div>
+
+              <p style="color:red;">${error}</p>
+
             </form>
 
 
@@ -94,7 +98,7 @@
                     <i class="fas fa-check"></i>
                   </span>
                 </div>
-                <p class="help is-success">This username is available</p>
+                <p style="color:red;">${errors['username']}</p>
               </div>
 
             <!-- fullname -->
@@ -103,6 +107,7 @@
                 <div class="control ">
                     <input name ="fullname" class="input" type="text" placeholder="Enter your full name here" />
                 </div>
+              <p style="color:red;">${errors['fullname']}</p>
             </div>
 
               <!-- email -->
@@ -117,7 +122,7 @@
                         <i class="fas fa-exclamation-triangle"></i>
                     </span>
                 </div>
-                <p class="help is-danger">This email is invalid</p>
+                <p style="color:red;">${errors['email']}</p>
             </div>
 
               <!-- password -->
@@ -139,6 +144,7 @@
                         <i class="fas fa-lock"></i>
                     </span>
                 </p>
+                <p style="color:red;">${errors['password']}</p>
             </div>
               <!-- button -->
               <div class="control">
