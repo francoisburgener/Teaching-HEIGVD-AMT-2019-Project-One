@@ -1,7 +1,6 @@
 package ch.heigvd.amt.projet.web;
 
 import ch.heigvd.amt.projet.dao.UsersManagerLocal;
-import ch.heigvd.amt.projet.model.User;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

@@ -37,7 +37,6 @@ public class UsersManager implements UsersManagerLocal{
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
-                int id = rs.getInt("idUser");
                 String username = rs.getString("username");
                 String fullname = rs.getString("fullname");
                 String email = rs.getString("email");
@@ -121,8 +120,8 @@ public class UsersManager implements UsersManagerLocal{
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
             StringBuilder sb = new StringBuilder();
-            for(int i=0; i< bytes.length ;i++){
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+            for (byte aByte : bytes) {
+                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
             }
             hashedPassword = sb.toString();
         }

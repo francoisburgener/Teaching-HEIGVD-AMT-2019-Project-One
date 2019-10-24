@@ -7,10 +7,10 @@ import java.util.List;
 
 @Local
 public interface UsersManagerLocal {
-    public List<User> findAllUsers();
-    public void createUser(User user);
-    public boolean signIn(String username, String password);
-    public boolean isUsernameFree(String username);
+    List<User> findAllUsers();
+    void createUser(User user);
+    boolean signIn(String username, String password);
+    boolean isUsernameFree(String username);
 
-    public boolean checkPassword(String password, String confirmPassowrd);
+    boolean checkPassword(String password, String confirmPassowrd);
 }
