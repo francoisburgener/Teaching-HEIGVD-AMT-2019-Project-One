@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(urlPatterns = "/signin", name = "SignInServlet")
@@ -24,17 +25,21 @@ public class SignInServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO verify all field are not empty
         String username = request.getParameter("usernameS");
         String password = request.getParameter("passwordS");
 
-        //TODO Check if password matches with the username
+        HttpSession session = request.getSession();
 
         if(userManager.signIn(username,password)) {
-            //TODO Do something more ?
-            request.getRequestDispatcher("/WEB-INF/pages/bonjour.jsp").forward(request, response);
+            session.setAttribute("userSession",username);
+            response.sendRedirect("app");
         }else {
-            // TODO Send error to the page
+            request.setAttribute("error","Invalid Login or password");
+            request.setAttribute("tabSelect",true);
+            request.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(request, response);
         }
+
+
+
     }
 }
