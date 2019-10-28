@@ -55,7 +55,7 @@ public class RegisterServlet extends HttpServlet {
         }
 
         if(errors.isEmpty()){
-            User user = new User(username, fullname, email, password);
+            User user = User.builder().username(username).fullname(fullname).email(email).password(password).build();
             userManager.createUser(user);
             resp.sendRedirect("signin");
 

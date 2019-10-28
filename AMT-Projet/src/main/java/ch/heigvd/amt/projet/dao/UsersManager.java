@@ -42,7 +42,7 @@ public class UsersManager implements UsersManagerLocal{
                 String email = rs.getString("email");
                 String password = rs.getString("password");
 
-                users.add(new User(username,fullname,email,password));
+                users.add(User.builder().username(username).fullname(fullname).email(email).password(password).build());
             }
             connection.close();
         }catch (SQLException ex){
