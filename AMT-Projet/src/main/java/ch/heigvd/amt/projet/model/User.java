@@ -9,7 +9,6 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 @AllArgsConstructor
-
 public class User {
   private String username;
   private String fullname;

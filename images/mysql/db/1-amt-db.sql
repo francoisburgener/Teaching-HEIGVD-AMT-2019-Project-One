@@ -34,14 +34,14 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `amt-db`.`City`
+-- Table `amt-db`.`Country`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `amt-db`.`City` ;
+DROP TABLE IF EXISTS `amt-db`.`Country` ;
 
-CREATE TABLE IF NOT EXISTS `amt-db`.`City` (
-  `idCity` INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS `amt-db`.`Country` (
+  `idCountry` INT NOT NULL AUTO_INCREMENT,
   `Name` VARCHAR(45) NULL,
-  PRIMARY KEY (`idCity`))
+  PRIMARY KEY (`idCountry`))
 ENGINE = InnoDB;
 
 
@@ -52,20 +52,20 @@ DROP TABLE IF EXISTS `amt-db`.`Trip` ;
 
 CREATE TABLE IF NOT EXISTS `amt-db`.`Trip` (
   `User_idUser` INT NOT NULL,
-  `City_idCity` INT NOT NULL,
+  `Country_idCountry` INT NOT NULL,
   `visited` TINYINT NULL,
   `date` DATE NULL,
-  PRIMARY KEY (`User_idUser`, `City_idCity`),
-  INDEX `fk_User_has_City_City1_idx` (`City_idCity` ASC) VISIBLE,
-  INDEX `fk_User_has_City_User_idx` (`User_idUser` ASC) VISIBLE,
-  CONSTRAINT `fk_User_has_City_User`
+  PRIMARY KEY (`User_idUser`, `Country_idCountry`),
+  INDEX `fk_User_has_Country_Country1_idx` (`Country_idCountry` ASC) VISIBLE,
+  INDEX `fk_User_has_Country_User_idx` (`User_idUser` ASC) VISIBLE,
+  CONSTRAINT `fk_User_has_Country_User`
     FOREIGN KEY (`User_idUser`)
     REFERENCES `amt-db`.`User` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_User_has_City_City1`
-    FOREIGN KEY (`City_idCity`)
-    REFERENCES `amt-db`.`City` (`idCity`)
+  CONSTRAINT `fk_User_has_Country_Country1`
+    FOREIGN KEY (`Country_idCountry`)
+    REFERENCES `amt-db`.`Country` (`idCountry`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
