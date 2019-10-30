@@ -52,7 +52,8 @@ public class UsersManager implements UsersManagerLocal{
     }
 
     @Override
-    public void createUser(User user) {
+    public boolean createUser(User user) {
+        boolean check = false;
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?);");
@@ -65,9 +66,15 @@ public class UsersManager implements UsersManagerLocal{
             pstmt.executeUpdate();
 
             connection.close();
+
+            check = true;
+
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return check;
         }
+
+        return check;
     }
 
     @Override

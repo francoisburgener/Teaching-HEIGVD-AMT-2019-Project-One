@@ -56,8 +56,13 @@ public class RegisterServlet extends HttpServlet {
 
         if(errors.isEmpty()){
             User user = User.builder().username(username).fullname(fullname).email(email).password(password).build();
-            userManager.createUser(user);
-            resp.sendRedirect("signin");
+            if(userManager.createUser(user)) {
+                resp.sendRedirect("signin");
+            }else{
+                req.setAttribute("sqlError","SQL errors");
+                req.setAttribute("tabSelect", false);
+                req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
+            }
 
         }else{
             req.setAttribute("errors",errors);

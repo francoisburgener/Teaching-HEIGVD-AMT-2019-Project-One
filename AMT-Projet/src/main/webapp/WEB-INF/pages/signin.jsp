@@ -150,6 +150,7 @@
               <div class="control">
                 <button class="button is-link">Submit</button>
               </div>
+              <p style="color:red;">${sqlError}</p>
             </form>
           </div>
         </div>
