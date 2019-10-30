@@ -3,6 +3,7 @@ package ch.heigvd.amt.projet.dao;
 import ch.heigvd.amt.projet.model.Country;
 
 import javax.annotation.Resource;
+import javax.ejb.Stateless;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Stateless
 public class CountryManager implements CountryManagerLocal {
 
     @Resource(lookup = "jdbc/amt-db")
