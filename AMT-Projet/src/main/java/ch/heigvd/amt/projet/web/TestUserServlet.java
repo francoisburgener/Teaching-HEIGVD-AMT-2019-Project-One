@@ -13,7 +13,7 @@ import java.io.IOException;
 
 
 @WebServlet(urlPatterns = "/user" , name = "TestServlet")
-public class TestServlet extends HttpServlet {
+public class TestUserServlet extends HttpServlet {
 
     @EJB
     private UsersManagerLocal userManager;
