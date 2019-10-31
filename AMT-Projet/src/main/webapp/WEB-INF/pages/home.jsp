@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,6 +9,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
     />
+    <script src="<c:url value="/resources/js/home.js" />" defer></script>
     <script
       defer
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
@@ -169,7 +171,6 @@
         </nav>
       </div>
     </section>
-    <script type="text/javascript" src="home.js" defer></script>
     <script>
       const modalelem = document.getElementById('modal-create');
       const htmlElem = document.getElementsByTagName('html');
