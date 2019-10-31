@@ -9,15 +9,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>JSP page country</title>
+    <title>JSP page trip</title>
 </head>
 <body>
-<h1>Countries</h1>
+<h1>Trips of ${username}</h1>
 <table>
-    <c:forEach items="${countries}" var="country">
+    <c:forEach items="${trips}" var="trip">
         <tr>
-            <td>${country.id}</td>
-            <td>${country.name}</td>
+            <td>${trip.idCountry} ${trip.countryName}</td>
+            <td>${trip.visited}</td>
+            <td>${trip.date}</td>
         </tr>
     </c:forEach>
 </table>
