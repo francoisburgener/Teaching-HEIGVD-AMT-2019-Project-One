@@ -14,6 +14,7 @@ import java.io.IOException;
 @WebServlet(urlPatterns = "/signin", name = "SignInServlet")
 public class SignInServlet extends HttpServlet {
 
+
     @EJB
     private UsersManagerLocal userManager;
 
@@ -30,7 +31,7 @@ public class SignInServlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         if(userManager.signIn(username,password)) {
-            session.setAttribute("userSession",username);
+            session.setAttribute("userSession",userManager.findUserByUserame(username));
             response.sendRedirect("app");
         }else {
             request.setAttribute("error","Invalid Login or password");

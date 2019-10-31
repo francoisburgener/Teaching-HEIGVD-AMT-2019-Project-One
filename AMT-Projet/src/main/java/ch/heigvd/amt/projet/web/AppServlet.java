@@ -1,5 +1,9 @@
 package ch.heigvd.amt.projet.web;
 
+import ch.heigvd.amt.projet.dao.TripManagerLocal;
+import ch.heigvd.amt.projet.model.User;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +15,16 @@ import java.io.IOException;
 @WebServlet( urlPatterns = "/app", name = "AppServlet")
 public class AppServlet extends HttpServlet {
 
+    @EJB
+    private TripManagerLocal tripManager;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("userSession");
-        request.setAttribute("username", username);
+        User user = (User) session.getAttribute("userSession");
+
+        request.setAttribute("user", user);
+        request.setAttribute("trips",tripManager.findAllTripByUsername(user.getUsername()));
         request.getRequestDispatcher("/WEB-INF/pages/app.jsp").forward(request, response);
     }
 

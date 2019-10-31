@@ -31,8 +31,9 @@ public class CountryManager implements CountryManagerLocal {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
+                int id = rs.getInt("idCountry");
                 String name = rs.getString("name");
-                users.add(Country.builder().name(name).build());
+                users.add(Country.builder().id(id).name(name).build());
             }
             connection.close();
         }catch (SQLException ex){

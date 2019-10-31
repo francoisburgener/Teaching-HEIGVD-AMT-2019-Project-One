@@ -11,5 +11,6 @@ import lombok.Getter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Country {
+  private int id;
   private String name;
 }

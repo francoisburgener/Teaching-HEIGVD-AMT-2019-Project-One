@@ -37,18 +37,43 @@ public class UsersManager implements UsersManagerLocal{
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
+                int id = rs.getInt("idUser");
                 String username = rs.getString("username");
                 String fullname = rs.getString("fullname");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
 
-                users.add(User.builder().username(username).fullname(fullname).email(email).password(password).build());
+                users.add(User.builder().id(id).username(username).fullname(fullname).email(email).password(password).build());
             }
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
         }
         return users;
+    }
+
+    @Override
+    public User findUserByUserame(String username) {
+        User user = null;
+
+        try {
+            Connection connection = dataSource.getConnection();
+
+            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User where username=?;");
+            pstmt.setString(1,username);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                int id = rs.getInt("idUser");
+                String fullname = rs.getString("fullname");
+                String email = rs.getString("email");
+                user = User.builder().id(id).username(username).fullname(fullname).email(email).build();
+            }
+            connection.close();
+        }catch (SQLException ex){
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        return user;
     }
 
     @Override

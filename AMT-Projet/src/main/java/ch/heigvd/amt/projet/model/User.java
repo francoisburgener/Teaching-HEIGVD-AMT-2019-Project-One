@@ -10,6 +10,7 @@ import lombok.Getter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class User {
+  private int id;
   private String username;
   private String fullname;
   private String email;
