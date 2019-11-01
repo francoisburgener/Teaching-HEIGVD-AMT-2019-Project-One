@@ -53,17 +53,74 @@ public class TripManager implements TripManagerLocal {
 
     @Override
     public boolean createTrip(Trip trip) {
-        return false;
+        boolean check = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Trip (User_idUser, Country_idCountry, visited, date) VALUES (?,?,?,?);");
+            pstmt.setInt(1,trip.getIdUser());
+            pstmt.setInt(2,trip.getIdCountry());
+            pstmt.setBoolean(3,trip.isVisited());
+            pstmt.setString(4,trip.getDate());
+            pstmt.executeUpdate();
+            connection.close();
+
+            check = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return check;
+        }
+
+        return check;
     }
 
     @Override
     public boolean deleteTrip(Trip trip) {
-        return false;
+
+        boolean check = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM `Trip` WHERE Trip.idTrip = ? AND Trip.User_idUser = ? AND Trip.Country_idCountry = ?");
+            pstmt.setInt(1,trip.getIdTrip());
+            pstmt.setInt(2,trip.getIdUser());
+            pstmt.setInt(3,trip.getIdCountry());
+            pstmt.executeUpdate();
+            connection.close();
+
+            check = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return check;
+        }
+
+        return check;
     }
 
     @Override
     public boolean updateTrip(Trip trip) {
-        return false;
+
+        boolean check = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE Trip SET visited = ?, date = ? WHERE Trip.idTrip = ? AND Trip.User_idUser = ? AND Trip.Country_idCountry = ?;");
+
+            pstmt.setBoolean(1,trip.isVisited());
+            pstmt.setString(2,trip.getDate());
+            pstmt.setInt(3,trip.getIdTrip());
+            pstmt.setInt(4,trip.getIdUser());
+            pstmt.setInt(5,trip.getIdCountry());
+            pstmt.executeUpdate();
+            connection.close();
+
+            check = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return check;
+        }
+
+        return check;
     }
 
 
