@@ -8,5 +8,7 @@ import java.util.List;
 @Local
 public interface TripManagerLocal {
     List<Trip> findAllTripByUsername(String username);
-    void deleteTrip(int idCountry, int idUser);
+    boolean createTrip(Trip trip);
+    boolean deleteTrip(Trip trip);
+    boolean updateTrip(Trip trip);
 }

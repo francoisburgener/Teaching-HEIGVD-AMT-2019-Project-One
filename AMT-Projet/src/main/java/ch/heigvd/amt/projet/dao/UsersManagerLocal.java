@@ -10,8 +10,8 @@ public interface UsersManagerLocal {
     List<User> findAllUsers();
     User findUserByUserame(String username);
     boolean createUser(User user);
+    boolean updateUser(User user);
     boolean signIn(String username, String password);
     boolean isUsernameFree(String username);
-
     boolean checkPassword(String password, String confirmPassowrd);
 }

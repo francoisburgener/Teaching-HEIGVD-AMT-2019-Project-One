@@ -38,9 +38,9 @@
                 <div class="control has-icons-left">
                   <div class="select" style="width: 100%;">
                     <select id="country-select" style="width: 100%;">
-                      <option selected>Thailand</option>
-                      <option>Japan</option>
-                      <option>South Korea</option>
+                      <c:forEach items="${countries}" var="country">
+                        <option value=${country.id}>${country.name}</option>
+                      </c:forEach>
                     </select>
                   </div>
                   <div class="icon is-small is-left">
@@ -100,7 +100,7 @@
 
           <!-- Right side -->
           <div class="level-right">
-            <p class="level-item">Connected as: <a> Jean-Michel Hortence</a></p>
+            <p class="level-item">Connected as: <a> ${user.fullname}</a></p>
             <p class="level-item">
               <a class="button is-danger is-outlined">Sign out</a>
             </p>
@@ -179,7 +179,7 @@
       const htmlElem = document.getElementsByTagName('html');
 
       let modalState = false;
-      let countriesList = [
+      /*let countriesList = [
         { id: 1, name: 'Deutschland', date: '2011-09-29', visited: true },
         { id: 2, name: 'France', date: '2011-09-29', visited: false },
         { id: 3, name: 'Netherlands', date: '2011-09-29', visited: false },
@@ -187,7 +187,17 @@
         { id: 5, name: 'United States', date: '2011-09-29', visited: false },
         { id: 6, name: 'Brasil', date: '2011-09-29', visited: false },
         { id: 7, name: 'Argentina', date: '2011-09-29', visited: false }
-      ];
+      ];*/
+
+      let countriesList = ${trips} /*[
+        { "idTrip": 1, "countryName": 'Deutschland', "date": '2011-09-29', "visited": true },
+        { "idTrip": 2, "countryName": 'France', "date": '2011-09-29', "visited": false },
+        { "idTrip": 3, "countryName": 'Netherlands', "date": '2011-09-29', "visited": false },
+        { "idTrip": 4, "countryName": 'China', "date": '2011-09-29', "visited": true },
+        { "idTrip": 5, "countryName": 'United States', "date": '2011-09-29', "visited": false },
+        { "idTrip": 6, "countryName": 'Brasil', "date": '2011-09-29', "visited": false },
+        { "idTrip": 7, "countryName": 'Argentina', "date": '2011-09-29', "visited": false }
+      ];*/
 
     </script>
   </body>

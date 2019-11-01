@@ -14,7 +14,7 @@ function displayCountries() {
               <div class="card">
                 <header class="card-header">
                   <p class="card-header-title">
-                    ${obj.name}
+                    ${obj.countryName}
                   </p>
                   <a href="#" class="card-header-icon" aria-label="more options">
                     <span class="icon">
@@ -22,7 +22,7 @@ function displayCountries() {
                   </a>
                   <div class="card-header-icon">
                     <button class="button is-small is-danger is-outlined" onclick="deleteOfList(${
-                      obj.id
+                      obj.idTrip
                     })">
 
                     <span class="icon is-small">
@@ -35,15 +35,15 @@ function displayCountries() {
                     <label class="label"> Date trip</label>
 
                     <input
-                    id="input-date-${obj.id}"
+                    id="input-date-${obj.idTrip}"
                     class="input" type="date"
-                    onchange="editDate(${obj.id})"
+                    onchange="editDate(${obj.idTrip})"
                     value=${obj.date} />
                   </div>
                   <div class="content">
                     <button class="button is-link ${
                       obj.visited === false ? 'is-outlined' : ''
-                    }" onclick="toggleVisited(${obj.id})">
+                    }" onclick="toggleVisited(${obj.idTrip})">
                       <span class="icon is-small">
                         <i class="fas fa-check"></i>
                       </span>
@@ -85,18 +85,20 @@ function displayCountries() {
     const dateChoice = document.getElementById('input-date').value;
 
     countriesList.unshift({
-      id: 99,
-      name: countryChoice,
-      date: dateChoice,
-      visited: false
+      "idTrip": 99,
+      "countryName": countryChoice,
+      "date": dateChoice,
+      "visited": false
     });
+
+    console.log(countriesList);
 
     displayCountries();
     modalSwitch();
   }
 
   function deleteOfList(id) {
-    countriesList = countriesList.filter(obj => obj.id !== id);
+    countriesList = countriesList.filter(obj => obj.idTrip !== id);
     displayCountries();
   }
 
@@ -104,7 +106,7 @@ function displayCountries() {
     const dateChoice = document.getElementById(`input-date-${id}`).value;
 
     countriesList.map(obj => {
-      if (obj.id === id) {
+      if (obj.idTrip === id) {
         obj.date = dateChoice;
       }
     });
@@ -113,7 +115,7 @@ function displayCountries() {
 
   function toggleVisited(id) {
     countriesList.map(obj => {
-      if (obj.id === id) {
+      if (obj.idTrip === id) {
         obj.visited = !obj.visited;
       }
     });

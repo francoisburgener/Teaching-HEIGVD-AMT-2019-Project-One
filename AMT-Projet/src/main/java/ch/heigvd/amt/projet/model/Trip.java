@@ -10,8 +10,11 @@ import lombok.Getter;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Trip {
+    private int idTrip;
+    private int idUser;
     private int idCountry;
     private boolean visited;
     private String date;
     private String countryName;
+    private String username;
 }

@@ -51,11 +51,12 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `amt-db`.`Trip` ;
 
 CREATE TABLE IF NOT EXISTS `amt-db`.`Trip` (
+  `idTrip` INT NOT NULL AUTO_INCREMENT,
   `User_idUser` INT NOT NULL,
   `Country_idCountry` INT NOT NULL,
   `visited` TINYINT NULL,
   `date` DATE NULL,
-  PRIMARY KEY (`User_idUser`, `Country_idCountry`),
+  PRIMARY KEY (`idTrip`,`User_idUser`, `Country_idCountry`),
   INDEX `fk_User_has_Country_Country1_idx` (`Country_idCountry` ASC) VISIBLE,
   INDEX `fk_User_has_Country_User_idx` (`User_idUser` ASC) VISIBLE,
   CONSTRAINT `fk_User_has_Country_User`

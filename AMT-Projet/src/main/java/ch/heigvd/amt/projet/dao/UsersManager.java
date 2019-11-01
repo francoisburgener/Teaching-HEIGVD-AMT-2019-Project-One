@@ -103,6 +103,11 @@ public class UsersManager implements UsersManagerLocal{
     }
 
     @Override
+    public boolean updateUser(User user) {
+        return false;
+    }
+
+    @Override
     public boolean checkPassword(String password, String confirmPassowrd) {
         return password.equals(confirmPassowrd);
     }
