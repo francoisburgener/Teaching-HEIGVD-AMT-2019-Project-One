@@ -104,7 +104,29 @@ public class UsersManager implements UsersManagerLocal{
 
     @Override
     public boolean updateUser(User user) {
-        return false;
+
+        boolean check = false;
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE User SET fullname = ?, email = ? password = ? WHERE User.idUser = ?;");
+
+            pstmt.setString(1,user.getFullname());
+            pstmt.setString(2,user.getEmail());
+
+            String hashedPassWord = hashPassword(user.getPassword());
+            pstmt.setString(3,hashedPassWord);
+
+            pstmt.executeUpdate();
+            connection.close();
+
+            check = true;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return check;
+        }
+
+        return check;
     }
 
     @Override
