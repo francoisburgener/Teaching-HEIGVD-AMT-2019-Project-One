@@ -32,7 +32,7 @@ public class SignInServlet extends HttpServlet {
 
         if(userManager.signIn(username,password)) {
             session.setAttribute("userSession",userManager.findUserByUserame(username));
-            response.sendRedirect("app");
+            response.sendRedirect("home");
         }else {
             request.setAttribute("error","Invalid Login or password");
             request.setAttribute("tabSelect",true);

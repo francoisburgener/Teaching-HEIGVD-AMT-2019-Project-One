@@ -170,7 +170,10 @@
           </ul>
         </nav>
       </div>
+
+      <p>${trips}</p>
     </section>
+
     <script>
       const modalelem = document.getElementById('modal-create');
       const htmlElem = document.getElementsByTagName('html');
@@ -185,6 +188,7 @@
         { id: 6, name: 'Brasil', date: '2011-09-29', visited: false },
         { id: 7, name: 'Argentina', date: '2011-09-29', visited: false }
       ];
+
     </script>
   </body>
 </html>

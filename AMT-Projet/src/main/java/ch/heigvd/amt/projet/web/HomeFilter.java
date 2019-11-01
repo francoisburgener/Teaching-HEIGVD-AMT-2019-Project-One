@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/app",filterName = "AppFilter")
-public class AppFilter implements Filter {
+@WebFilter(urlPatterns = "/home",filterName = "HomeFilter")
+public class HomeFilter implements Filter {
     public void destroy() {
     }
 
