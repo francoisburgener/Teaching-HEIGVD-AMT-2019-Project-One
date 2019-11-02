@@ -38,7 +38,6 @@
             <div class="control has-icons-left">
               <div class="select" style="width: 100%;">
                 <select id="country-select" style="width: 100%;">
-                  <option value=1>Japan</option>
                 </select>
               </div>
               <div class="icon is-small is-left">
@@ -201,6 +200,19 @@
         { "idTrip": 7, "countryName": 'Argentina', "date": '2011-09-29', "visited": false }
       ];*/
   let countriesList = ${countries}
+
+  function selectValue() {
+    var selectList = document.getElementById("country-select");
+
+    for(var i = 0; i < countriesList.length; ++i){
+      let option = document.createElement("option");
+      option.value = countriesList[i].id;
+      option.text = countriesList[i].name;
+      selectList.appendChild(option);
+    }
+  }
+
+  selectValue();
 </script>
 </body>
 </html>
