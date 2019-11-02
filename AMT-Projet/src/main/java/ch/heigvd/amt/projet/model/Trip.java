@@ -15,6 +15,4 @@ public class Trip {
     private int idCountry;
     private boolean visited;
     private String date;
-    private String countryName;
-    private String username;
 }

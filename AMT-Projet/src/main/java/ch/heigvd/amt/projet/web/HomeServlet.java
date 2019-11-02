@@ -30,21 +30,22 @@ public class HomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("userSession");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String jsonString = gson.toJson(tripManager.findAllTripByUsername(user.getUsername()));
+        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername()));
+        String countries = gson.toJson(countryManager.findAllCountries());
 
         request.setAttribute("user", user);
-        request.setAttribute("countries",countryManager.findAllCountries());
-        request.setAttribute("trips",jsonString);
+        request.setAttribute("countries",countries);
+        request.setAttribute("trips",trips);
         request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("userSession");
+        /*User user = (User) request.getSession().getAttribute("userSession");
         int idCountry = 79 ; //TODO get parameter
         int idUser = user.getId();
         String date = "2020-12-22"; //TODO get parameter
         Boolean visited = false; //TODO get parameter
-
+        */
 
 
     }

@@ -1,20 +1,19 @@
 function displayCountries() {
     const mainContainerElem = document.getElementById('main-container');
 
-    if (countriesList.length < 1) {
+    if (tripsList.length < 1) {
       mainContainerElem.innerHTML =
         '<h1 class="title has-text-centered">No current trips</h1>\
         <h2 class="subtitle has-text-centered">Don\'t be shy, create a new trip with the green button</h2>';
       return;
     }
-
     let count = 1;
-    let todisplay = countriesList.reduce((acc, obj) => {
+    let todisplay = tripsList.reduce((acc, obj) => {
       let cardDivs = `<div class="column is-3">
               <div class="card">
                 <header class="card-header">
                   <p class="card-header-title">
-                    ${obj.countryName}
+                    ${countriesList[obj.idCountry - 1].name} 
                   </p>
                   <a href="#" class="card-header-icon" aria-label="more options">
                     <span class="icon">
@@ -81,31 +80,31 @@ function displayCountries() {
   /* Adds a new country to list */
   function addToList() {
     const e = document.getElementById('country-select');
-    const countryChoice = e.options[e.selectedIndex].text;
+    const countryChoice = e.options[e.selectedIndex].value;
     const dateChoice = document.getElementById('input-date').value;
 
-    countriesList.unshift({
+    tripsList.unshift({
       "idTrip": 99,
-      "countryName": countryChoice,
+      "idCountry": countryChoice,
       "date": dateChoice,
       "visited": false
     });
 
-    console.log(countriesList);
+    console.log(tripsList);
 
     displayCountries();
     modalSwitch();
   }
 
   function deleteOfList(id) {
-    countriesList = countriesList.filter(obj => obj.idTrip !== id);
+    tripsList = tripsList.filter(obj => obj.idTrip !== id);
     displayCountries();
   }
 
   function editDate(id) {
     const dateChoice = document.getElementById(`input-date-${id}`).value;
 
-    countriesList.map(obj => {
+    tripsList.map(obj => {
       if (obj.idTrip === id) {
         obj.date = dateChoice;
       }
@@ -114,7 +113,7 @@ function displayCountries() {
   }
 
   function toggleVisited(id) {
-    countriesList.map(obj => {
+    tripsList.map(obj => {
       if (obj.idTrip === id) {
         obj.visited = !obj.visited;
       }

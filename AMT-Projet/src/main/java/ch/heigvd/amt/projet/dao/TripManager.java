@@ -27,10 +27,8 @@ public class TripManager implements TripManagerLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT trip.idTrip,trip.User_idUser,trip.Country_idCountry,trip.visited,trip.date, country.name\n" +
-                    "FROM Trip trip\n" +
+                    "SELECT * FROM Trip trip\n" +
                     "LEFT JOIN User user ON trip.User_idUser = user.idUser\n" +
-                    "LEFT JOIN Country country ON trip.Country_idCountry = country.idCountry\n" +
                     "WHERE user.username = " + "'" + username +"'");
             ResultSet rs = pstmt.executeQuery();
 
@@ -40,8 +38,7 @@ public class TripManager implements TripManagerLocal {
                 int idCountry = rs.getInt("Country_idCountry");
                 boolean visited = rs.getBoolean("visited");
                 String dateTrip = rs.getDate("date").toString();
-                String countyName = rs.getString("name");
-                trips.add(Trip.builder().idTrip(idTrip).idUser(idUser).idCountry(idCountry).countryName(countyName).username(username).date(dateTrip).visited(visited).build());
+                trips.add(Trip.builder().idTrip(idTrip).idUser(idUser).idCountry(idCountry).date(dateTrip).visited(visited).build());
             }
             connection.close();
         }catch (SQLException ex){

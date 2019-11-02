@@ -16,7 +16,9 @@
 <table>
     <c:forEach items="${trips}" var="trip">
         <tr>
-            <td>${trip.idCountry} ${trip.countryName}</td>
+            <td>${trip.idTrip}</td>
+            <td>${trip.idUser}</td>
+            <td>${trip.idCountry}</td>
             <td>${trip.visited}</td>
             <td>${trip.date}</td>
         </tr>
