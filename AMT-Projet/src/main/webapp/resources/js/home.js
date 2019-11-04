@@ -78,10 +78,27 @@ function displayCountries() {
   }
 
   /* Adds a new country to list */
-  function addToList() {
+  async function addToList() {
     const e = document.getElementById('country-select');
     const countryChoice = e.options[e.selectedIndex].value;
     const dateChoice = document.getElementById('input-date').value;
+
+
+
+    let params = "idCountry=" + countryChoice + "&date=" + dateChoice + "&visited=" + false;
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: "home",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data : params
+      });
+
+    } catch (e) {
+      console.error(e);
+    }
 
     tripsList.unshift({
       "idTrip": 99,
@@ -94,6 +111,8 @@ function displayCountries() {
 
     displayCountries();
     modalSwitch();
+
+
   }
 
   function deleteOfList(id) {

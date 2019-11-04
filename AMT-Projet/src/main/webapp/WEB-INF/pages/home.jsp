@@ -15,6 +15,8 @@
           src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
   ></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" defer></script>
+
   <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
 <body>
