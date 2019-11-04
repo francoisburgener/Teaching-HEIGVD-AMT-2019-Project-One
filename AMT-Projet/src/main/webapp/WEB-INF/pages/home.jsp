@@ -21,7 +21,6 @@
 <!-- MODAL -->
 <div id="modal-create" class="modal">
   <div class="modal-background" onclick="modalSwitch()"></div>
-  <form method="" action="">
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Plan a new trip!</p>
@@ -63,7 +62,6 @@
         <button class="button" onclick="modalSwitch()">Cancel</button>
       </footer>
     </div>
-  </form>
 </div>
 
 <!-- TOP -->
@@ -128,8 +126,8 @@
       <!-- Right side -->
       <div class="level-right">
         <p class="level-item">
-          <a class="button is-success" onClick="modalSwitch()"
-          >Plan an awesome new trip!</a
+          <button class="button is-success" onClick="modalSwitch()"
+          >Plan an awesome new trip!</button
           >
         </p>
       </div>
@@ -167,11 +165,6 @@
       </ul>
     </nav>
   </div>
-
-  <p>${trips}</p>
-  </br>
-  <p>${countries}</p>
-
 
 </section>
 
