@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,12 +16,31 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body style="height: 100%;">
-    <section class="section has-background-light">
+  <body">
+    <!-- TOP -->
+    <section class="section">
+      <div class="container">
+        <nav class="level">
+          <!-- Left side -->
+          <div class="level-left">
+            <div class="level-item">
+              <p class="subtitle is-5"><strong>Countries</strong> todos</p>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- FORM -->
+
+    <section class="section">
       <div class="container">
         <h1 class="title">
-          Hello World
+          Sign in or register and start your journey
         </h1>
+        <h2 class="subtitle">
+            Plan your travels to countries you wish to visit with simplicity.
+        </h2>
         <div class="card">
           <header class="card-header">
             <div class="tabs">
@@ -38,7 +56,12 @@
           </header>
           <div class="card-content">
             <!-- sign in form -->
-            <form method="post" action="signin" id="sign-in-form" class="content">
+            <form
+              method="post"
+              action="signin"
+              id="sign-in-form"
+              class="content"
+            >
               <!-- username-->
               <div class="field">
                 <label class="label">Username</label>
@@ -62,7 +85,12 @@
               <!-- password -->
               <div class="field">
                 <p class="control has-icons-left">
-                  <input name="passwordS" class="input" type="password" placeholder="Password" />
+                  <input
+                    name="passwordS"
+                    class="input"
+                    type="password"
+                    placeholder="Password"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
@@ -73,20 +101,23 @@
               <div class="control">
                 <button class="button is-link">Sign in</button>
               </div>
-
               <p style="color:red;">${error}</p>
-
             </form>
 
-
             <!-- register form -->
-              <form method="post" action="register" id="register-form" class="content" style="display: none">
+            <form
+              method="post"
+              action="register"
+              id="register-form"
+              class="content"
+              style="display: none"
+            >
               <!-- username-->
               <div class="field">
                 <label class="label">Username</label>
                 <div class="control has-icons-left has-icons-right">
                   <input
-                    name ="username"
+                    name="username"
                     class="input is-success"
                     type="text"
                     placeholder="Enter your username here"
@@ -98,54 +129,74 @@
                     <i class="fas fa-check"></i>
                   </span>
                 </div>
-                <p style="color:red;">${errors['username']}</p>
               </div>
 
-            <!-- fullname -->
-            <div class="field">
+              <!-- fullname -->
+              <div class="field">
                 <label class="label">Fullname</label>
                 <div class="control ">
-                    <input name ="fullname" class="input" type="text" placeholder="Enter your full name here" />
+                  <input
+                    name="fullname"
+                    class="input"
+                    type="text"
+                    placeholder="Enter your full name here"
+                  />
                 </div>
-              <p style="color:red;">${errors['fullname']}</p>
-            </div>
+                <p style="color:red;">${errors['fullname']}</p>
+              </div>
 
               <!-- email -->
-            <div class="field">
+              <div class="field">
                 <label class="label">Email</label>
                 <div class="control has-icons-left has-icons-right">
-                    <input name ="email" class="input is-danger" type="email" placeholder="Email input" value="hello@">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                    </span>
-                    <span class="icon is-small is-right">
-                        <i class="fas fa-exclamation-triangle"></i>
-                    </span>
+                  <input
+                    name="email"
+                    class="input is-danger"
+                    type="email"
+                    placeholder="Email input"
+                    value="hello@"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                  <span class="icon is-small is-right">
+                    <i class="fas fa-exclamation-triangle"></i>
+                  </span>
                 </div>
                 <p style="color:red;">${errors['email']}</p>
-            </div>
+              </div>
 
               <!-- password -->
               <div class="field">
                 <label class="label">Password</label>
                 <p class="control has-icons-left">
-                  <input name ="password" class="input" type="password" placeholder="Enter your password here" />
+                  <input
+                    name="password"
+                    class="input"
+                    type="password"
+                    placeholder="Enter your password here"
+                  />
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
                 </p>
               </div>
 
-            <div class="field">
+              <div class="field">
                 <label class="label">Confirm password</label>
                 <p class="control has-icons-left">
-                    <input name ="confirm-password" class="input" type="password" placeholder="Confirm your password" />
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                    </span>
+                  <input
+                    name="confirm-password"
+                    class="input"
+                    type="password"
+                    placeholder="Confirm your password"
+                  />
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
                 </p>
-                <p style="color:red;">${errors['password']}</p>
-            </div>
+              </div>
+              <p style="color:red;">${errors['password']}</p>
               <!-- button -->
               <div class="control">
                 <button class="button is-link">Submit</button>
@@ -157,34 +208,34 @@
       </div>
     </section>
     <script>
-      const tabsign = document.getElementById("tab-sign-in");
-      const tabregister = document.getElementById("tab-register");
-      const register = document.getElementById("register-form");
-      const signin = document.getElementById("sign-in-form");
+      const tabsign = document.getElementById('tab-sign-in');
+      const tabregister = document.getElementById('tab-register');
+      const register = document.getElementById('register-form');
+      const signin = document.getElementById('sign-in-form');
       let signinActive = true;
 
       window.onload = function () {
-          tabSwitch(${tabSelect});
-      }
+        tabSwitch(${tabSelect});
+      };
 
       function tabSwitch(choice) {
         if (choice) {
           if (signinActive === false) {
-            tabsign.classList.add("is-active");
-            tabregister.classList.remove("is-active");
+            tabsign.classList.add('is-active');
+            tabregister.classList.remove('is-active');
 
-            register.style.display = "none";
-            signin.style.display = "block";
+            register.style.display = 'none';
+            signin.style.display = 'block';
 
             signinActive = true;
           }
         } else {
           if (signinActive === true) {
-            tabregister.classList.add("is-active");
-            tabsign.classList.remove("is-active");
+            tabregister.classList.add('is-active');
+            tabsign.classList.remove('is-active');
 
-            register.style.display = "block";
-            signin.style.display = "none";
+            register.style.display = 'block';
+            signin.style.display = 'none';
 
             signinActive = false;
           }

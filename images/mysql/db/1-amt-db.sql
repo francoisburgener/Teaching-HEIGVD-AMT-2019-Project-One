@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `amt-db`.`User` ;
 
 CREATE TABLE IF NOT EXISTS `amt-db`.`User` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
-  `username` VARCHAR(45) NULL,
+  `username` VARCHAR(45) NOT NULL UNIQUE,
   `fullname` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
   `password` VARCHAR(255) NULL,
