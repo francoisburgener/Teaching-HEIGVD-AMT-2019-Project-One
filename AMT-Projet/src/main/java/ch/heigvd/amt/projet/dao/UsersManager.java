@@ -1,13 +1,13 @@
 package ch.heigvd.amt.projet.dao;
 
+import ch.heigvd.amt.projet.business.IAuthenticationService;
+import ch.heigvd.amt.projet.dao.exception.DuplicateKeyException;
 import ch.heigvd.amt.projet.model.User;
 
 import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,6 +22,9 @@ public class UsersManager implements UsersManagerLocal{
 
     @Resource(lookup = "jdbc/amt-db")
     private DataSource dataSource;
+
+    @EJB
+    IAuthenticationService authenticationService;
 
     @Override
     public List<User> findAllUsers() {
@@ -60,25 +63,24 @@ public class UsersManager implements UsersManagerLocal{
             Connection connection = dataSource.getConnection();
 
             PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User where username=?;");
-            pstmt.setString(1,username);
+            pstmt.setString(1, username);
             ResultSet rs = pstmt.executeQuery();
+            boolean record = rs.next();
 
-            while (rs.next()){
-                int id = rs.getInt("idUser");
-                String fullname = rs.getString("fullname");
-                String email = rs.getString("email");
-                user = User.builder().id(id).username(username).fullname(fullname).email(email).build();
-            }
+            int id = rs.getInt("idUser");
+            String fullname = rs.getString("fullname");
+            String email = rs.getString("email");
+            user = User.builder().id(id).username(username).fullname(fullname).email(email).build();
             connection.close();
-        }catch (SQLException ex){
-            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Error(ex);
         }
-        return user;
     }
 
     @Override
-    public boolean createUser(User user) {
-        boolean check = false;
+    public void createUser(User user) throws DuplicateKeyException {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?);");
@@ -86,20 +88,14 @@ public class UsersManager implements UsersManagerLocal{
             pstmt.setString(2,user.getFullname());
             pstmt.setString(3,user.getEmail());
 
-            String hashedPassWord = hashPassword(user.getPassword());
+            String hashedPassWord = authenticationService.hashPassword(user.getPassword());
             pstmt.setString(4,hashedPassWord);
             pstmt.executeUpdate();
 
             connection.close();
-
-            check = true;
-
         } catch (SQLException ex) {
-            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
-            return check;
+            throw new DuplicateKeyException(ex.getMessage());
         }
-
-        return check;
     }
 
     @Override
@@ -113,7 +109,7 @@ public class UsersManager implements UsersManagerLocal{
             pstmt.setString(1,user.getFullname());
             pstmt.setString(2,user.getEmail());
 
-            String hashedPassWord = hashPassword(user.getPassword());
+            String hashedPassWord = authenticationService.hashPassword(user.getPassword());
             pstmt.setString(3,hashedPassWord);
 
             pstmt.executeUpdate();
@@ -130,11 +126,6 @@ public class UsersManager implements UsersManagerLocal{
     }
 
     @Override
-    public boolean checkPassword(String password, String confirmPassowrd) {
-        return password.equals(confirmPassowrd);
-    }
-
-    @Override
     public boolean signIn(String username, String password) {
 
         Boolean check = false;
@@ -143,9 +134,9 @@ public class UsersManager implements UsersManagerLocal{
             PreparedStatement pstmt = connection.prepareStatement("SELECT password FROM User WHERE username = '" + username + "'");
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()){
+            if (rs.next()){
                 String hashedPassword = rs.getString("password");
-                check = verifyHashedPassword(hashedPassword,password);
+                check = authenticationService.checkPassord(password,hashedPassword);
             }
             connection.close();
         } catch (SQLException e) {
@@ -153,49 +144,5 @@ public class UsersManager implements UsersManagerLocal{
         }
         return check;
     }
-
-    @Override
-    public boolean isUsernameFree(String username) {
-        Boolean check = true;
-        try {
-            Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("SELECT * FROM User WHERE username=?");
-            pstmt.setObject(1, username);
-            ResultSet rs = pstmt.executeQuery();
-
-            check = !rs.next();
-
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return check;
-    }
-
-    private String hashPassword(String password) {
-        String hashedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-512");
-            byte[] bytes = md.digest(password.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder();
-            for (byte aByte : bytes) {
-                sb.append(Integer.toString((aByte & 0xff) + 0x100, 16).substring(1));
-            }
-            hashedPassword = sb.toString();
-        }
-        catch (NoSuchAlgorithmException e){
-            e.printStackTrace();
-        }
-
-
-        return hashedPassword;
-    }
-
-    private boolean verifyHashedPassword(String hash, String attempt) {
-        String generateHash = hashPassword(attempt);
-        return hash.equals(generateHash);
-    }
-
 
 }

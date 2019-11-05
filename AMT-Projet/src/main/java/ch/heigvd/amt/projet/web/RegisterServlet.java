@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.web;
 
 import ch.heigvd.amt.projet.dao.UsersManagerLocal;
+import ch.heigvd.amt.projet.dao.exception.DuplicateKeyException;
 import ch.heigvd.amt.projet.model.User;
 
 import javax.ejb.EJB;
@@ -38,8 +39,6 @@ public class RegisterServlet extends HttpServlet {
         HashMap<String,String> errors = new HashMap<>();
         if(username.trim().isEmpty()){
             errors.put("username","Username cannot be empty");
-        }else if(!userManager.isUsernameFree(username)){
-            errors.put("username","Username is already used");
         }
 
         if(fullname.trim().isEmpty()){
@@ -51,20 +50,21 @@ public class RegisterServlet extends HttpServlet {
             errors.put("email","Email cannot be empty");
         }
 
-        if(password.trim().isEmpty() && confirmPassowrd.trim().isEmpty() && userManager.checkPassword(password,confirmPassowrd)){
+        if(password.trim().isEmpty() && confirmPassowrd.trim().isEmpty() && password.equals(confirmPassowrd)){
             errors.put("password","Passwords cannot be empty or not match");
         }
 
         if(errors.isEmpty()){
             User user = User.builder().username(username).fullname(fullname).email(email).password(password).build();
-            if(userManager.createUser(user)) {
+            try {
+                userManager.createUser(user);
                 resp.sendRedirect("signin");
-            }else{
-                req.setAttribute("sqlError","SQL errors");
+            } catch (DuplicateKeyException e) {
+                e.printStackTrace();
+                req.setAttribute("sqlError",e.getMessage());
                 req.setAttribute("tabSelect", false);
                 req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
             }
-
         }else{
             req.setAttribute("errors",errors);
             req.setAttribute("tabSelect", false);
