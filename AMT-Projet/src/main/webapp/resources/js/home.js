@@ -78,31 +78,79 @@ function displayCountries() {
   }
 
   /* Adds a new country to list */
-  function addToList() {
+  async function addToList() {
     const e = document.getElementById('country-select');
     const countryChoice = e.options[e.selectedIndex].value;
     const dateChoice = document.getElementById('input-date').value;
 
-    tripsList.unshift({
-      "idTrip": 99,
-      "idCountry": countryChoice,
-      "date": dateChoice,
-      "visited": false
-    });
 
-    console.log(tripsList);
 
-    displayCountries();
-    modalSwitch();
+    let params = "idCountry=" + countryChoice + "&date=" + dateChoice + "&visited=" + false + "&action=POST";
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: "home",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data : params
+      });
+
+      console.log(resp);
+      tripsList.unshift({
+        "idTrip": resp.data,
+        "idCountry": countryChoice,
+        "date": dateChoice,
+        "visited": false
+      });
+      displayCountries();
+      modalSwitch();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  function deleteOfList(id) {
-    tripsList = tripsList.filter(obj => obj.idTrip !== id);
-    displayCountries();
+  async function deleteOfList(id) {
+
+    let trip = tripsList.find(obj => obj.idTrip === id);
+
+    let params = "idTrip="+trip.idTrip+"&idCountry=" + trip.idCountry + "&date=" + trip.date + "&visited=" + trip.visited + "&action=DELETE";
+    try {
+      const resp = await axios({
+        method: "POST",
+        url: "home",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data : params
+      });
+      tripsList = tripsList.filter(obj => obj.idTrip !== id);
+      displayCountries();
+    } catch (e) {
+      console.error(e);
+    }
   }
 
-  function editDate(id) {
-    const dateChoice = document.getElementById(`input-date-${id}`).value;
+  async function editDate(id) {
+    //const dateChoice = document.getElementById(`input-date-${id}`).value;
+
+    let trip = tripsList.find(obj => obj.idTrip === id);
+
+    let params = "idTrip="+trip.idTrip+"&idCountry=" + trip.idCountry + "&date=" + trip.date + "&visited=" + trip.visited + "&action=UPDATE";
+    try {
+      const resp = await axios({
+        method: "UPDATE",
+        url: "home",
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data : params
+      });
+      tripsList = tripsList.filter(obj => obj.idTrip !== id);
+      displayCountries();
+    } catch (e) {
+      console.error(e);
+    }
 
     tripsList.map(obj => {
       if (obj.idTrip === id) {

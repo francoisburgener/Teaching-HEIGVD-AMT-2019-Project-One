@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.web;
 
 import ch.heigvd.amt.projet.dao.CountryManagerLocal;
 import ch.heigvd.amt.projet.dao.TripManagerLocal;
+import ch.heigvd.amt.projet.model.Trip;
 import ch.heigvd.amt.projet.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -40,13 +41,46 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*User user = (User) request.getSession().getAttribute("userSession");
-        int idCountry = 79 ; //TODO get parameter
-        int idUser = user.getId();
-        String date = "2020-12-22"; //TODO get parameter
-        Boolean visited = false; //TODO get parameter
-        */
+        String action = request.getParameter("action");
+        User user = (User) request.getSession().getAttribute("userSession");
+        int idUser = user.getId(); // pour tous
+        String idCountry = request.getParameter("idCountry"); // pour tous
+        String date = request.getParameter("date"); // pour tous
+        Boolean visited = Boolean.parseBoolean(request.getParameter("visited")); // pour tous
+        Trip trip = null;
+        String idTrip;
+        switch (action){
+            case "POST":
+                trip = Trip.builder().idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                int id = tripManager.createTrip(trip);
+                if(id != 0){
 
-
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write(""+ id);
+                    response.getWriter().flush();
+                    response.getWriter().close();
+                }else{
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
+            case "DELETE":
+                idTrip = request.getParameter("idTrip");
+                trip = Trip.builder().idTrip(Integer.parseInt(idTrip)).idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                if(tripManager.deleteTrip(trip)){
+                    response.setStatus(HttpServletResponse.SC_OK);
+                }else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
+            case "UPDATE":
+                idTrip = request.getParameter("idTrip");
+                trip = Trip.builder().idTrip(Integer.parseInt(idTrip)).idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                if(tripManager.updateTrip(trip)){
+                    response.setStatus(HttpServletResponse.SC_OK);
+                }else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
+        }
     }
 }

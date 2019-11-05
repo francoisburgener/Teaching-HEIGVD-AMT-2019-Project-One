@@ -15,13 +15,14 @@
           src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
   ></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js" defer></script>
+
   <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
 <body>
 <!-- MODAL -->
 <div id="modal-create" class="modal">
   <div class="modal-background" onclick="modalSwitch()"></div>
-  <form method="" action="">
     <div class="modal-card">
       <header class="modal-card-head">
         <p class="modal-card-title">Plan a new trip!</p>
@@ -63,7 +64,6 @@
         <button class="button" onclick="modalSwitch()">Cancel</button>
       </footer>
     </div>
-  </form>
 </div>
 
 <!-- TOP -->
@@ -99,7 +99,7 @@
       <div class="level-right">
         <p class="level-item">Connected as: <a> ${user.fullname}</a></p>
         <p class="level-item">
-          <a class="button is-danger is-outlined">Sign out</a>
+          <a class="button is-danger is-outlined" href="signout">Sign out</a>
         </p>
       </div>
     </nav>
@@ -128,8 +128,8 @@
       <!-- Right side -->
       <div class="level-right">
         <p class="level-item">
-          <a class="button is-success" onClick="modalSwitch()"
-          >Plan an awesome new trip!</a
+          <button class="button is-success" onClick="modalSwitch()"
+          >Plan an awesome new trip!</button
           >
         </p>
       </div>
@@ -167,11 +167,6 @@
       </ul>
     </nav>
   </div>
-
-  <p>${trips}</p>
-  </br>
-  <p>${countries}</p>
-
 
 </section>
 
