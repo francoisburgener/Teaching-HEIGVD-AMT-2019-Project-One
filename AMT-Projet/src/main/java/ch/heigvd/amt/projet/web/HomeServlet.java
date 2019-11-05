@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @WebServlet( urlPatterns = "/home", name = "HomeServlet")
 public class HomeServlet extends HttpServlet {
@@ -45,23 +41,46 @@ public class HomeServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*User user = (User) request.getSession().getAttribute("userSession");
-        int idCountry = 79 ; //TODO get parameter
-        int idUser = user.getId();
-        String date = "2020-12-22"; //TODO get parameter
-        Boolean visited = false; //TODO get parameter
-        */
+        String action = request.getParameter("action");
         User user = (User) request.getSession().getAttribute("userSession");
-        String idCountry = request.getParameter("idCountry");
-        int idUser = user.getId();
-        String date = request.getParameter("date");
-        Boolean visited = Boolean.parseBoolean(request.getParameter("visited"));
+        int idUser = user.getId(); // pour tous
+        String idCountry = request.getParameter("idCountry"); // pour tous
+        String date = request.getParameter("date"); // pour tous
+        Boolean visited = Boolean.parseBoolean(request.getParameter("visited")); // pour tous
+        Trip trip = null;
+        String idTrip;
+        switch (action){
+            case "POST":
+                trip = Trip.builder().idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                int id = tripManager.createTrip(trip);
+                if(id != 0){
 
-        Trip trip = Trip.builder().idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
-        if(tripManager.createTrip(trip)){
-            response.setStatus(200);
-        }else{
-            response.setStatus(400);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                    response.getWriter().write(""+ id);
+                    response.getWriter().flush();
+                    response.getWriter().close();
+                }else{
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
+            case "DELETE":
+                idTrip = request.getParameter("idTrip");
+                trip = Trip.builder().idTrip(Integer.parseInt(idTrip)).idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                if(tripManager.deleteTrip(trip)){
+                    response.setStatus(HttpServletResponse.SC_OK);
+                }else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
+            case "UPDATE":
+                idTrip = request.getParameter("idTrip");
+                trip = Trip.builder().idTrip(Integer.parseInt(idTrip)).idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                if(tripManager.updateTrip(trip)){
+                    response.setStatus(HttpServletResponse.SC_OK);
+                }else {
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                }
+                break;
         }
     }
 }

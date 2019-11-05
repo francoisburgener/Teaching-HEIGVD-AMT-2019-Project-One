@@ -5,10 +5,7 @@ import ch.heigvd.amt.projet.model.Trip;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -49,11 +46,11 @@ public class TripManager implements TripManagerLocal {
     }
 
     @Override
-    public boolean createTrip(Trip trip) {
-        boolean check = false;
+    public int createTrip(Trip trip) {
+        int id = 0;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Trip (User_idUser, Country_idCountry, visited, date) VALUES (?,?,?,?);");
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Trip (User_idUser, Country_idCountry, visited, date) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1,trip.getIdUser());
             pstmt.setInt(2,trip.getIdCountry());
             pstmt.setBoolean(3,trip.isVisited());
@@ -61,14 +58,16 @@ public class TripManager implements TripManagerLocal {
             pstmt.executeUpdate();
             connection.close();
 
-            check = true;
+            ResultSet rs = pstmt.getGeneratedKeys();
+            if(rs.next()){
+                id = rs.getInt(1);
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
-            return check;
         }
 
-        return check;
+        return id;
     }
 
     @Override
@@ -77,7 +76,7 @@ public class TripManager implements TripManagerLocal {
         boolean check = false;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM `Trip` WHERE Trip.idTrip = ? AND Trip.User_idUser = ? AND Trip.Country_idCountry = ?");
+            PreparedStatement pstmt = connection.prepareStatement("DELETE FROM Trip WHERE Trip.idTrip = ? AND Trip.User_idUser = ? AND Trip.Country_idCountry = ?");
             pstmt.setInt(1,trip.getIdTrip());
             pstmt.setInt(2,trip.getIdUser());
             pstmt.setInt(3,trip.getIdCountry());
