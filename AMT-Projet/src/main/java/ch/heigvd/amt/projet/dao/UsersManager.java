@@ -2,6 +2,7 @@ package ch.heigvd.amt.projet.dao;
 
 import ch.heigvd.amt.projet.business.IAuthenticationService;
 import ch.heigvd.amt.projet.dao.exception.DuplicateKeyException;
+import ch.heigvd.amt.projet.dao.exception.KeyNotFoundException;
 import ch.heigvd.amt.projet.model.User;
 
 import javax.annotation.Resource;
@@ -99,31 +100,45 @@ public class UsersManager implements UsersManagerLocal{
     }
 
     @Override
-    public boolean updateUser(User user) {
+    public User updateUserInfo(User user) throws KeyNotFoundException{
 
-        boolean check = false;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("UPDATE User SET fullname = ?, email = ? password = ? WHERE User.idUser = ?;");
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE User SET fullname = ?, email = ? WHERE User.idUser = ?;");
 
             pstmt.setString(1,user.getFullname());
             pstmt.setString(2,user.getEmail());
-
-            String hashedPassWord = authenticationService.hashPassword(user.getPassword());
-            pstmt.setString(3,hashedPassWord);
+            pstmt.setInt(3,user.getId());
 
             pstmt.executeUpdate();
             connection.close();
 
-            check = true;
-
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
-            return check;
+            throw new KeyNotFoundException(ex.getMessage());
         }
 
-        return check;
+        return user;
     }
+
+    @Override
+    public boolean updateUserPassword(User user) {
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("UPDATE User SET password = ? WHERE User.idUser = ?;");
+
+            pstmt.setString(1,user.getPassword());
+            pstmt.setInt(2,user.getId());
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 
     @Override
     public boolean signIn(String username, String password) {

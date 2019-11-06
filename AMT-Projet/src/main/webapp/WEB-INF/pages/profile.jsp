@@ -72,7 +72,7 @@
       <div class="container">
         <form
           method="post"
-          action="register"
+          action="profile"
           id="register-form"
           class="content"
         >
@@ -130,6 +130,8 @@
               </span>
             </div>
           </div>
+
+          <input type="hidden" name="editAction" value="editUserProfile">
 
           <!-- button -->
           <div class="control">

@@ -79,11 +79,11 @@
                     <i class="fas fa-check"></i>
                   </span>
                 </div>
-                <p class="help is-success">This username is available</p>
               </div>
 
               <!-- password -->
               <div class="field">
+                <label class="label">Password</label>
                 <p class="control has-icons-left">
                   <input
                     name="passwordS"
@@ -95,13 +95,13 @@
                     <i class="fas fa-lock"></i>
                   </span>
                 </p>
+                <p class="help is-danger">${error}</p>
               </div>
 
               <!-- button -->
               <div class="control">
                 <button class="button is-link">Sign in</button>
               </div>
-              <p style="color:red;">${error}</p>
             </form>
 
             <!-- register form -->
