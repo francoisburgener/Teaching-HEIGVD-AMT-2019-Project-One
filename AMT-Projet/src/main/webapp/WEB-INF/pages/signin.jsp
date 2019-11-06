@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hello Bulma!</title>
+    <title>Countries todos</title>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body">
+  <body>
     <!-- TOP -->
     <section class="section">
       <div class="container">
@@ -68,7 +68,7 @@
                 <div class="control has-icons-left has-icons-right">
                   <input
                     name="usernameS"
-                    class="input is-success"
+                    class="input"
                     type="text"
                     placeholder="Enter your username here"
                   />
@@ -118,17 +118,15 @@
                 <div class="control has-icons-left has-icons-right">
                   <input
                     name="username"
-                    class="input is-success"
+                    class="input"
                     type="text"
                     placeholder="Enter your username here"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
-                  <span class="icon is-small is-right">
-                    <i class="fas fa-check"></i>
-                  </span>
                 </div>
+                <p class="help is-danger">${errors['username']}</p>
               </div>
 
               <!-- fullname -->
@@ -142,7 +140,7 @@
                     placeholder="Enter your full name here"
                   />
                 </div>
-                <p style="color:red;">${errors['fullname']}</p>
+                <p class="help is-danger">${errors['fullname']}</p>
               </div>
 
               <!-- email -->
@@ -151,10 +149,9 @@
                 <div class="control has-icons-left has-icons-right">
                   <input
                     name="email"
-                    class="input is-danger"
+                    class="input"
                     type="email"
                     placeholder="Email input"
-                    value="hello@"
                   />
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
@@ -163,7 +160,7 @@
                     <i class="fas fa-exclamation-triangle"></i>
                   </span>
                 </div>
-                <p style="color:red;">${errors['email']}</p>
+                <p class="help is-danger">${errors['email']}</p>
               </div>
 
               <!-- password -->
@@ -196,12 +193,12 @@
                   </span>
                 </p>
               </div>
-              <p style="color:red;">${errors['password']}</p>
+              <p class="help is-danger">${errors['password']}</p>
               <!-- button -->
               <div class="control">
                 <button class="button is-link">Submit</button>
               </div>
-              <p style="color:red;">${sqlError}</p>
+              <p class="help is-danger">${sqlError}</p>
             </form>
           </div>
         </div>
