@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="style.css" />
   </head>
 
-  <body>
+  <body style="background-image: url('https://source.unsplash.com/1600x900/?travel?asia'); background-size:cover;">
     <!-- TOP -->
     <section class="section">
       <div class="container">
@@ -24,7 +24,7 @@
           <!-- Left side -->
           <div class="level-left">
             <div class="level-item">
-              <p class="subtitle is-5"><strong>Countries</strong> todos</p>
+              <p class="subtitle is-5 has-text-white"><strong class="has-text-white">Countries</strong> todos</p>
             </div>
           </div>
         </nav>
@@ -35,10 +35,10 @@
 
     <section class="section">
       <div class="container">
-        <h1 class="title">
+        <h1 class="title has-text-white">
           Sign in or register and start your journey
         </h1>
-        <h2 class="subtitle">
+        <h2 class="subtitle has-text-white">
             Plan your travels to countries you wish to visit with simplicity.
         </h2>
         <div class="card">
