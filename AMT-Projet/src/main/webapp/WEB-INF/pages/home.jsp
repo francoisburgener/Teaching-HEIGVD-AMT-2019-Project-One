@@ -97,7 +97,7 @@
 
       <!-- Right side -->
       <div class="level-right">
-        <p class="level-item">Connected as: <a> ${user.fullname}</a></p>
+        <p class="level-item">Connected as: <a href="home/profile"> ${user.fullname}</a></p>
         <p class="level-item">
           <a class="button is-danger is-outlined" href="signout">Sign out</a>
         </p>

@@ -58,7 +58,7 @@ public class RegisterServlet extends HttpServlet {
             User user = User.builder().username(username).fullname(fullname).email(email).password(password).build();
             try {
                 userManager.createUser(user);
-                resp.sendRedirect("signin");
+                resp.sendRedirect(req.getContextPath() + "/signin");
             } catch (DuplicateKeyException e) {
                 e.printStackTrace();
                 req.setAttribute("sqlError",e.getMessage());
