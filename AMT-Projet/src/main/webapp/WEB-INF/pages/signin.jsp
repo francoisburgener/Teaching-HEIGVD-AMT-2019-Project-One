@@ -24,7 +24,9 @@
           <!-- Left side -->
           <div class="level-left">
             <div class="level-item">
-              <p class="subtitle is-5 has-text-white"><strong class="has-text-white">Countries</strong> todos</p>
+              <p class="subtitle is-5 has-text-white">
+                <span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
+                <strong class="has-text-white">Countries</strong> todos</p>
             </div>
           </div>
         </nav>

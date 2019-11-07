@@ -25,7 +25,9 @@
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <p class="subtitle is-5"><strong>Countries</strong> todos</p>
+          <p class="subtitle is-5">
+            <span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
+            <strong>Countries</strong> todos</p>
         </div>
       </div>
 
