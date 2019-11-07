@@ -1,0 +1,2 @@
+create-jdbc-connection-pool --datasourceclassname com.mysql.cj.jdbc.MysqlDataSource --restype javax.sql.ConnectionPoolDataSource --property user=root:password=admin:DatabaseName=amt-db:ServerName=db:port=3306:useSSL=false pool_amt
+create-jdbc-resource --connectionpoolid pool_amt jdbc/amt-db
