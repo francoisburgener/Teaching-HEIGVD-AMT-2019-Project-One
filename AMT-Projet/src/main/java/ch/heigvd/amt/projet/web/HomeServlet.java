@@ -25,13 +25,28 @@ public class HomeServlet extends HttpServlet {
     @EJB
     private CountryManagerLocal countryManager;
 
+    private final int SIZE = 8;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("userSession");
 
+        String page = request.getParameter("page");
+
+        int offset;
+        try {
+            offset = Integer.parseInt(page);
+            offset = offset < 1 ? 1 : offset;
+            offset =  (offset-1)*8;
+        }catch (NumberFormatException e){
+            offset = 0;
+        }
+
+
+
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(), 0, 8));
+        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(), offset, SIZE));
         String countries = gson.toJson(countryManager.findAllCountries());
 
         request.setAttribute("user", user);
