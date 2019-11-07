@@ -14,6 +14,9 @@
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
 
+    <link rel="stylesheet" href="resources/css/style.css" />
+
+
   </head>
   <body>
     <section

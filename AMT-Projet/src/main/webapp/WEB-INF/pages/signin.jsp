@@ -13,7 +13,7 @@
       src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
     ></script>
 
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="resources/css/style.css" />
   </head>
 
   <body style="background-image: url('https://source.unsplash.com/1600x900/?travel?asia'); background-size:cover;">
@@ -41,7 +41,7 @@
         <h2 class="subtitle has-text-white">
             Plan your travels to countries you wish to visit with simplicity.
         </h2>
-        <div class="card">
+        <div class="card" style="border-radius: 0.3em">
           <header class="card-header">
             <div class="tabs">
               <ul>
