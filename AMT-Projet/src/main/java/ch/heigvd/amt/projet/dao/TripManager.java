@@ -24,10 +24,11 @@ public class TripManager implements TripManagerLocal {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
-                    "SELECT * FROM Trip trip\n" +
-                    "LEFT JOIN User user ON trip.User_idUser = user.idUser\n" +
-                    "WHERE user.username = " + "'" + username +"'" +
-                    "LIMIT " + offset + ", " + size
+                    "SELECT * FROM Trip as trip\n" +
+                    "LEFT JOIN User as user ON trip.User_idUser = user.idUser\n" +
+                    "WHERE user.username = " + "'" + username +"'\n" +
+                    "ORDER BY trip.idTrip DESC\n" +
+                    "LIMIT " + offset + ", " + size + ";"
             );
             ResultSet rs = pstmt.executeQuery();
 

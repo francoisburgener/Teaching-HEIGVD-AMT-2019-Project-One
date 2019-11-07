@@ -73,6 +73,7 @@
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
+          <span><i class="fas fa-map-marked-alt"></i></span>
           <p class="subtitle is-5"><strong>Countries</strong> todos</p>
         </div>
       </div>
