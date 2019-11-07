@@ -18,7 +18,7 @@ public class TripManager implements TripManagerLocal {
     private DataSource dataSource;
 
     @Override
-    public List<Trip> findAllTripByUsername(String username) {
+    public List<Trip> findAllTripByUsername(String username, int offset, int size) {
         List<Trip> trips = new ArrayList<>();
 
         try {
@@ -26,7 +26,9 @@ public class TripManager implements TripManagerLocal {
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT * FROM Trip trip\n" +
                     "LEFT JOIN User user ON trip.User_idUser = user.idUser\n" +
-                    "WHERE user.username = " + "'" + username +"'");
+                    "WHERE user.username = " + "'" + username +"'" +
+                    "LIMIT " + offset + ", " + size
+            );
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){

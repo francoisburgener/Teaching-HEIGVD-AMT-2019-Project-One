@@ -7,7 +7,7 @@ import java.util.List;
 
 @Local
 public interface TripManagerLocal {
-    List<Trip> findAllTripByUsername(String username);
+    List<Trip> findAllTripByUsername(String username, int offset, int size);
     int createTrip(Trip trip);
     boolean deleteTrip(Trip trip);
     boolean updateTrip(Trip trip);

@@ -22,7 +22,7 @@ public class TestTripServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String username = "galiaker";
         request.setAttribute("username",username);
-        request.setAttribute("trips",tripManager.findAllTripByUsername(username));
+        request.setAttribute("trips",tripManager.findAllTripByUsername(username, 0 , 8));
         request.getRequestDispatcher("/WEB-INF/pages/trip.jsp").forward(request,response);
     }
 }

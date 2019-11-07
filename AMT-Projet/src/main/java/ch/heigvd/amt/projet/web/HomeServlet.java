@@ -31,7 +31,7 @@ public class HomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("userSession");
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername()));
+        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(), 0, 8));
         String countries = gson.toJson(countryManager.findAllCountries());
 
         request.setAttribute("user", user);
