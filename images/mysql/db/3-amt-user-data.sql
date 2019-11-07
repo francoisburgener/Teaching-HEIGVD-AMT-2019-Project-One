@@ -1,4 +1,4 @@
-USE `amt-db` ;
+USE `amt-db`;
 
 INSERT INTO User (username,fullname,email,password)VALUES('galiaker','François Burgener','francois.burgener@hotmail.fr','$2a$10$FfShhsWbwpfTybBpghXDleSc5JsGK2hw69esil.xdl5Qbujb7fnA.');
 INSERT INTO User (username,fullname,email,password)VALUES('jeandupont','Jean Dupont','jean.dupont@hotmail.com','$2a$10$FfShhsWbwpfTybBpghXDleSc5JsGK2hw69esil.xdl5Qbujb7fnA.');

@@ -18,7 +18,7 @@ services:
     image: mysql:latest
     restart: always
     #for v8 mysql
-    command: --default-authentication-plugin=mysql_native_password
+    command: --default-authentication-plugin=mysql_native_password --secure-file-priv=""
     environment:
       - MYSQL_ROOT_PASSWORD=admin
     ports:
