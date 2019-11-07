@@ -32,13 +32,14 @@ public class HomeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("userSession");
 
-        String page = request.getParameter("page");
+        String pageString = request.getParameter("page");
 
         int offset;
+        int page = 1;
         try {
-            offset = Integer.parseInt(page);
-            offset = offset < 1 ? 1 : offset;
-            offset =  (offset-1)*8;
+            page = Integer.parseInt(pageString);
+            page = page < 1 ? 1 : page;
+            offset =  (page-1)*8;
         }catch (NumberFormatException e){
             offset = 0;
         }
@@ -52,6 +53,7 @@ public class HomeServlet extends HttpServlet {
         request.setAttribute("user", user);
         request.setAttribute("countries",countries);
         request.setAttribute("trips",trips);
+        request.setAttribute("page",page);
         request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
     }
 

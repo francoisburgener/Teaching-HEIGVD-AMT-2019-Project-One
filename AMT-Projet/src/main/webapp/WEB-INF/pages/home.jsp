@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Hello Bulma!</title>
+  <title>Countries Todo</title>
   <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
@@ -145,24 +145,20 @@
   <!-- PAGINATION -->
   <div class="container">
     <nav class="pagination" role="navigation" aria-label="pagination">
-      <a class="pagination-previous" title="This is the first page" disabled
+      <a class="pagination-previous" title="This is the first page"
+         href="?page=${page - 1}"
+      ${page <= 1 ? "disabled" : ""}
       >Previous</a
       >
-      <a class="pagination-next">Next page</a>
+      <a class="pagination-next" href="?page=${page + 1}">Next page</a>
       <ul class="pagination-list">
         <li>
           <a
                   class="pagination-link is-current"
                   aria-label="Page 1"
                   aria-current="page"
-          >1</a
+          >${page}</a
           >
-        </li>
-        <li>
-          <a class="pagination-link" aria-label="Goto page 2">2</a>
-        </li>
-        <li>
-          <a class="pagination-link" aria-label="Goto page 3">3</a>
         </li>
       </ul>
     </nav>
@@ -208,6 +204,9 @@
   }
 
   selectValue();
+</script>
+<script>
+
 </script>
 </body>
 </html>
