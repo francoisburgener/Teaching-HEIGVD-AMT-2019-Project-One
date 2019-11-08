@@ -28,9 +28,8 @@ public class SignInServlet extends HttpServlet {
         String username = request.getParameter("usernameS");
         String password = request.getParameter("passwordS");
 
-        HttpSession session = request.getSession();
-
         if(userManager.signIn(username,password)) {
+            HttpSession session = request.getSession();
             session.setAttribute("userSession",userManager.findUserByUserame(username));
             response.sendRedirect(request.getContextPath() + "/home");
         }else {
