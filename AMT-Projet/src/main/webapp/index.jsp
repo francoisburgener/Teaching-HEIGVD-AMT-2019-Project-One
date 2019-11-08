@@ -25,14 +25,15 @@
     >
       <div class="hero-body">
         <div class="container">
-          <h1 class="title is-size-1">Countries todo</h1>
+          <h1 class="title is-size-1"><span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
+            Countries todo</h1>
           <h2 class="subtitle is-size-4 is-uppercase">
             Teaching-HEIGVD-AMT-2019-Project-One
           </h2>
         </div>
       </div>
     </section>
-    <section class="section has-text-centered">
+    <section class="section has-text-centered" style="min-height: calc(51vh - 67px);">
       <div class="container">
         <div class="content">
           <p>
@@ -40,26 +41,27 @@
           </p>
         </div>
       </div>
-    </section>
-    <section>
-      <div class="container has-text-centered">
-        <a href="/AMT-Projet/register" class="button is-primary">
+
+      <div class="container">
+        <div class="container has-text-centered">
+          <a href="/AMT-Projet/register" class="button is-primary">
           <span class="icon">
             <i class="fas fa-user-plus"></i>
           </span>
-          <span>Register</span>
-        </a>
+            <span>Register</span>
+          </a>
 
-        <a href="/AMT-Projet/signin" class="button is-primary is-outlined">
+          <a href="/AMT-Projet/signin" class="button is-primary is-outlined">
           <span class="icon">
             <i class="fas fa-sign-in-alt"></i>
           </span>
-          <span>Sign in</span>
-        </a>
+            <span>Sign in</span>
+          </a>
+        </div>
       </div>
     </section>
 
-    <footer class="footer" style="bottom:0px; position:fixed; width:100%">
+    <footer class="footer" style=" width:100%">
       <div class="content has-text-centered">
         <p>
           <strong>Countries todo</strong> by

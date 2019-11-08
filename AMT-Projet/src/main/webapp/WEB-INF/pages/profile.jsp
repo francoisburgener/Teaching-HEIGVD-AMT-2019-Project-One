@@ -16,7 +16,7 @@
 
   <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
-<body>
+<body style="background-color: hsl(0, 0%, 99%)">
 
 <!-- TOP -->
 <section class="section">

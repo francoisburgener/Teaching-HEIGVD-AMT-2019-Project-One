@@ -19,7 +19,7 @@
 
   <!-- <link rel="stylesheet" href="style.css" /> -->
 </head>
-<body>
+<body style="background-color: hsl(0, 0%, 99%)">
 <!-- MODAL -->
 <div id="modal-create" class="modal">
   <div class="modal-background" onclick="modalSwitch()"></div>
