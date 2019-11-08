@@ -10,6 +10,12 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
   />
   <script src="<c:url value="/resources/js/home.js" />" defer></script>
+
+  <link
+          rel="stylesheet"
+          href="<c:url value="/resources/css/autocomplete.css" />"
+  />
+
   <script
           defer
           src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"
@@ -23,47 +29,47 @@
 <!-- MODAL -->
 <div id="modal-create" class="modal">
   <div class="modal-background" onclick="modalSwitch()"></div>
-    <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Plan a new trip!</p>
-        <button
-                class="delete"
-                aria-label="close"
-                onclick="modalSwitch()"
-        ></button>
-      </header>
-      <section class="modal-card-body">
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Plan a new trip!</p>
+      <button
+              class="delete"
+              aria-label="close"
+              onclick="modalSwitch()"
+      ></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="field">
+        <label class="label">Country</label>
         <div class="field">
-          <label class="label">Country</label>
-          <div class="field">
-            <div class="control has-icons-left">
-              <div class="select" style="width: 100%;">
-                <select id="country-select" style="width: 100%;">
-                </select>
-              </div>
-              <div class="icon is-small is-left">
-                <i class="fas fa-globe"></i>
-              </div>
-              <p class="help">Choose a country you wish to visit.</p>
+          <div class="control has-icons-left">
+            <div class="select" style="width: 100%;">
+              <select id="country-select" style="width: 100%;">
+              </select>
             </div>
+            <div class="icon is-small is-left">
+              <i class="fas fa-globe"></i>
+            </div>
+            <p class="help">Choose a country you wish to visit.</p>
           </div>
         </div>
+      </div>
 
-        <div class="field">
-          <label class="label">Date</label>
-          <div class="control">
-            <input id="input-date" class="input" type="date" />
-          </div>
-          <p class="help">Pick some date for your travel</p>
+      <div class="field">
+        <label class="label">Date</label>
+        <div class="control">
+          <input id="input-date" class="input" type="date" />
         </div>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button is-success" onclick="addToList()">
-          Create
-        </button>
-        <button class="button" onclick="modalSwitch()">Cancel</button>
-      </footer>
-    </div>
+        <p class="help">Pick some date for your travel</p>
+      </div>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button is-success" onclick="addToList()">
+        Create
+      </button>
+      <button class="button" onclick="modalSwitch()">Cancel</button>
+    </footer>
+  </div>
 </div>
 
 <!-- TOP -->
@@ -71,29 +77,13 @@
   <div class="container">
     <nav class="level">
       <!-- Left side -->
+      <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
-          <p class="subtitle is-5"><strong>Countries</strong> todos</p>
+          <p class="subtitle is-5">
+            <span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
+            <strong>Countries</strong> todos</p>
         </div>
-      </div>
-
-      <div class="field has-addons">
-        <p class="control">
-          <input
-                  class="input"
-                  type="text"
-                  placeholder="Find an exciting trip"
-          />
-        </p>
-        <p class="control">
-          <button class="button">
-            <span>Search</span>
-            <span class="icon is-small">
-                  <i class="fas fa-search"></i>
-                </span>
-          </button>
-        </p>
       </div>
 
       <!-- Right side -->
@@ -125,6 +115,28 @@
       <div class="level-left">
         <div class="level-item"></div>
       </div>
+
+      <form autocomplete="off">
+        <div class="field has-addons">
+
+          <p class="control autocomplete">
+            <input
+                    id="search-input"
+                    class="input"
+                    type="text"
+                    placeholder="Find an exciting trip"
+            />
+          </p>
+          <p class="control">
+            <button class="button">
+              <span>Search</span>
+              <span class="icon is-small">
+                  <i class="fas fa-search"></i>
+                </span>
+            </button>
+          </p>
+        </div>
+      </form>
 
       <!-- Right side -->
       <div class="level-right">
@@ -166,6 +178,7 @@
   </div>
 
 </section>
+<script src="<c:url value="/resources/js/autocomplete.js" />"></script>
 
 <script>
   const modalelem = document.getElementById('modal-create');
@@ -182,7 +195,7 @@
     { id: 7, name: 'Argentina', date: '2011-09-29', visited: false }
   ];*/
 
-  let tripsList = ${trips} /*[
+  let tripsList = ${trips}; /*[
         { "idTrip": 1, "countryName": 'Deutschland', "date": '2011-09-29', "visited": true },
         { "idTrip": 2, "countryName": 'France', "date": '2011-09-29', "visited": false },
         { "idTrip": 3, "countryName": 'Netherlands', "date": '2011-09-29', "visited": false },
@@ -191,7 +204,7 @@
         { "idTrip": 6, "countryName": 'Brasil', "date": '2011-09-29', "visited": false },
         { "idTrip": 7, "countryName": 'Argentina', "date": '2011-09-29', "visited": false }
       ];*/
-  let countriesList = ${countries}
+  let countriesList = ${countries};
 
   function selectValue() {
     var selectList = document.getElementById("country-select");
@@ -205,9 +218,9 @@
   }
 
   selectValue();
-</script>
-<script>
+  autocomplete(document.getElementById("search-input"), countriesList.map(obj => obj.name));
 
 </script>
+
 </body>
 </html>

@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="resources/css/style.css" />
 </head>
 
-<body style="background-image: url('https://source.unsplash.com/1600x900/?travel?asia'); background-size:cover;"
+<body style="background-image: url('https://source.unsplash.com/featured/1600x900/?travel?asia?holidays'); background-size:cover;"
       class="has-background-grey"
 >
 <!-- TOP -->

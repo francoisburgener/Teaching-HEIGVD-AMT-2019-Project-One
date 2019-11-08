@@ -31,24 +31,6 @@
         </div>
       </div>
 
-      <div class="field has-addons">
-        <p class="control">
-          <input
-                  class="input"
-                  type="text"
-                  placeholder="Find an exciting trip"
-          />
-        </p>
-        <p class="control">
-          <button class="button">
-            <span>Search</span>
-            <span class="icon is-small">
-                  <i class="fas fa-search"></i>
-                </span>
-          </button>
-        </p>
-      </div>
-
       <!-- Right side -->
       <div class="level-right">
         <p class="level-item">Connected as: <a> ${user.fullname}</a></p>
