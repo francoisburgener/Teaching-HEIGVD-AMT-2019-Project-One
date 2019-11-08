@@ -116,7 +116,7 @@
         <div class="level-item"></div>
       </div>
 
-      <form autocomplete="off">
+      <form autocomplete="off" method="get" name="search-form" action="${pageContext.request.contextPath}/home">
         <div class="field has-addons">
 
           <p class="control autocomplete">
@@ -125,10 +125,11 @@
                     class="input"
                     type="text"
                     placeholder="Find an exciting trip"
+                    name="country-search"
             />
           </p>
           <p class="control">
-            <button class="button">
+            <button class="button" type="submit">
               <span>Search</span>
               <span class="icon is-small">
                   <i class="fas fa-search"></i>
@@ -159,11 +160,11 @@
   <div class="container">
     <nav class="pagination" role="navigation" aria-label="pagination">
       <a class="pagination-previous" title="This is the first page"
-         href="?page=${page - 1}"
+         href="?page=${page - 1}${countryName}"
       ${page <= 1 ? "disabled" : ""}
       >Previous</a
       >
-      <a class="pagination-next" href="?page=${page + 1}">Next page</a>
+      <a class="pagination-next" href="?page=${page + 1}${countryName}">Next page</a>
       <ul class="pagination-list">
         <li>
           <a

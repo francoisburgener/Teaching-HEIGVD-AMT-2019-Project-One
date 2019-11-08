@@ -57,6 +57,7 @@ public class HomeServlet extends HttpServlet {
         String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(),countryName, offset, SIZE));
         String countries = gson.toJson(countryManager.findAllCountries());
 
+        request.setAttribute("countryName", !countryName.isEmpty() ? "&country-search=" + countryName : "");
         request.setAttribute("user", user);
         request.setAttribute("countries",countries);
         request.setAttribute("trips",trips);
