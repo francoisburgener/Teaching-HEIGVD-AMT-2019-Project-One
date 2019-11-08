@@ -33,6 +33,13 @@ public class HomeServlet extends HttpServlet {
         User user = (User) session.getAttribute("userSession");
 
         String pageString = request.getParameter("page");
+        String countryName = request.getParameter("country-search");
+
+        if(countryName == null){
+            countryName = "";
+        }
+
+
 
         int offset;
         int page = 1;
@@ -47,7 +54,7 @@ public class HomeServlet extends HttpServlet {
 
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(), offset, SIZE));
+        String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(),countryName, offset, SIZE));
         String countries = gson.toJson(countryManager.findAllCountries());
 
         request.setAttribute("user", user);

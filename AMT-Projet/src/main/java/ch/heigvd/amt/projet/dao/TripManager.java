@@ -1,6 +1,8 @@
 package ch.heigvd.amt.projet.dao;
 
+import ch.heigvd.amt.projet.model.Country;
 import ch.heigvd.amt.projet.model.Trip;
+import ch.heigvd.amt.projet.model.User;
 
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
@@ -18,7 +20,7 @@ public class TripManager implements TripManagerLocal {
     private DataSource dataSource;
 
     @Override
-    public List<Trip> findAllTripByUsername(String username, int offset, int size) {
+    public List<Trip> findAllTripByUsername(String username, String countryName , int offset, int size) {
         List<Trip> trips = new ArrayList<>();
 
         try {
@@ -26,10 +28,13 @@ public class TripManager implements TripManagerLocal {
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT * FROM Trip as trip\n" +
                     "LEFT JOIN User as user ON trip.User_idUser = user.idUser\n" +
-                    "WHERE user.username = " + "'" + username +"'\n" +
+                    "LEFT JOIN Country as country ON trip.Country_idCountry = country.idCountry\n" +
+                    "WHERE user.username = ? AND  country.Name LIKE ? \n" +
                     "ORDER BY trip.idTrip DESC\n" +
                     "LIMIT " + offset + ", " + size + ";"
             );
+            pstmt.setString(1,username);
+            pstmt.setString(2,countryName + "%");
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()){
@@ -121,6 +126,4 @@ public class TripManager implements TripManagerLocal {
 
         return check;
     }
-
-
-}
+    }
