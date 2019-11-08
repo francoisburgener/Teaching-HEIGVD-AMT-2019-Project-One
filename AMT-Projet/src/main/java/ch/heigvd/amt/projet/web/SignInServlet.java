@@ -16,10 +16,9 @@ public class SignInServlet extends HttpServlet {
 
 
     @EJB
-    private UsersManagerLocal userManager;
+    UsersManagerLocal userManager;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         request.setAttribute("tabSelect",true);
         request.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(request, response);
     }
