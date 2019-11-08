@@ -15,8 +15,8 @@
 
   <link rel="stylesheet" href="resources/css/style.css" />
 </head>
-
-<body style="background-image: url('https://source.unsplash.com/featured/1600x900/?travel?asia?holidays'); background-size:cover;"
+<!--  url('https://source.unsplash.com/featured/1600x900/?travel?asia?holidays') -->
+<body style="background-image: url('https://source.unsplash.com/collection/1154785/1600x900'); background-size:cover;"
       class="has-background-grey"
 >
 <!-- TOP -->
