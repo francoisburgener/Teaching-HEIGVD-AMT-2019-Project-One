@@ -56,12 +56,10 @@ public class RegisterServlet extends HttpServlet {
 
         if(errors.isEmpty()){
             User user = User.builder().username(username).fullname(fullname).email(email).password(password).build();
-            try {
-                userManager.createUser(user);
+            if(userManager.createUser(user)){
                 resp.sendRedirect(req.getContextPath() + "/signin");
-            } catch (DuplicateKeyException e) {
-                e.printStackTrace();
-                req.setAttribute("sqlError",e.getMessage());
+            }else {
+                req.setAttribute("sqlError","SQL ERROR : This username is already used");
                 req.setAttribute("tabSelect", false);
                 req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
             }

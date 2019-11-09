@@ -20,10 +20,10 @@ import java.io.IOException;
 public class HomeServlet extends HttpServlet {
 
     @EJB
-    private TripManagerLocal tripManager;
+    TripManagerLocal tripManager;
 
     @EJB
-    private CountryManagerLocal countryManager;
+    CountryManagerLocal countryManager;
 
     private final int SIZE = 8;
 

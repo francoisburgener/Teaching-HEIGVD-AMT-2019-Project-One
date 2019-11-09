@@ -50,16 +50,13 @@ public class ProfileServlet extends HttpServlet {
                             .email(email)
                             .build();
 
-
-                    try {
+                    if(userManager.updateUserInfo(newUser) != null){
                         request.getSession().invalidate();
-                        request.getSession().setAttribute("userSession",  userManager.updateUserInfo(newUser));
-
+                        request.getSession().setAttribute("userSession",newUser);
                         response.sendRedirect(request.getContextPath() + "/home/profile");
-                    } catch (KeyNotFoundException e) {
-                        e.printStackTrace();
+                    }else{
+                        //TODO error;
                     }
-
                 } else {
                     request.setAttribute("errors", errors);
                     request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
