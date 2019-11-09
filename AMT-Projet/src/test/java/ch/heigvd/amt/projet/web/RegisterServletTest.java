@@ -35,9 +35,6 @@ class RegisterServletTest {
     UsersManagerLocal usersManager;
 
     @Mock
-    User user;
-
-    @Mock
     RequestDispatcher requestDispatcher;
 
     @Mock
@@ -65,6 +62,7 @@ class RegisterServletTest {
         when(request.getParameter("email")).thenReturn("francois.burgener@hotmail.fr");
         when(request.getParameter("password")).thenReturn("toto");
         when(request.getParameter("confirm-password")).thenReturn("toto");
+        when(usersManager.createUser(any(User.class))).thenReturn(true);
 
         servlet.doPost(request,response);
 
@@ -87,26 +85,22 @@ class RegisterServletTest {
     }
 
     //TODO remove or to make it work
-    /*@Test
-    void doPostShouldRegisterFailedWithSQLException() throws IOException, ServletException, DuplicateKeyException {
+    @Test
+    void doPostShouldRegisterFailed() throws ServletException, IOException {
         when(request.getParameter("username")).thenReturn("galiaker");
         when(request.getParameter("fullname")).thenReturn("François Burgener");
         when(request.getParameter("email")).thenReturn("francois.burgener@hotmail.fr");
         when(request.getParameter("password")).thenReturn("toto");
         when(request.getParameter("confirm-password")).thenReturn("toto");
+        when(request.getRequestDispatcher("/WEB-INF/pages/signin.jsp")).thenReturn(requestDispatcher);
+        when(usersManager.createUser(any(User.class))).thenReturn(false);
 
+        servlet.doPost(request,response);
 
-
-        try {
-            doThrow().when(usersManager).createUser(user);
-            servlet.doPost(request,response);
-        }catch (ServletException e){
-            verify(request,atLeastOnce()).setAttribute(eq("sqlError"),eq(e.getMessage()));
-            verify(request,atLeastOnce()).setAttribute(eq("tabSelect"),eq(false));
-            verify(requestDispatcher,atLeastOnce()).forward(request,response);
-        }
-
-    }*/
+        verify(request,atLeastOnce()).setAttribute(eq("sqlError"),eq("SQL ERROR : This username is already used"));
+        verify(request,atLeastOnce()).setAttribute(eq("tabSelect"),eq(false));
+        verify(requestDispatcher,atLeastOnce()).forward(request,response);
+    }
 
 
 
