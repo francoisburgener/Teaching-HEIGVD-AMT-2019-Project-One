@@ -81,7 +81,7 @@ public class UsersManager implements UsersManagerLocal{
     }
 
     @Override
-    public void createUser(User user) throws DuplicateKeyException {
+    public boolean createUser(User user) {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("INSERT INTO User(username,fullname,email,password) VALUES (?, ?, ?, ?);");
@@ -95,12 +95,13 @@ public class UsersManager implements UsersManagerLocal{
 
             connection.close();
         } catch (SQLException ex) {
-            throw new DuplicateKeyException(ex.getMessage());
+            return false;
         }
+        return true;
     }
 
     @Override
-    public User updateUserInfo(User user) throws KeyNotFoundException{
+    public User updateUserInfo(User user){
 
         try {
             Connection connection = dataSource.getConnection();
@@ -112,10 +113,9 @@ public class UsersManager implements UsersManagerLocal{
 
             pstmt.executeUpdate();
             connection.close();
-
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
-            throw new KeyNotFoundException(ex.getMessage());
+            return null;
         }
 
         return user;
