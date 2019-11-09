@@ -50,16 +50,19 @@ function displayCountries() {
                     </button>
                   </div>
                 </div>
+                    <footer class="card-footer">
+                    <p class="card-footer-item">Reason: Work</p>
+                    </footer>
               </div>
               </div>`;
     let separator = '';
     if (count % 4 === 0) {
-      separator = '</div><div class="columns is-desktop">';
+      separator = '</div><div class="columns">';
     }
     count++;
 
     return acc + cardDivs + separator;
-  }, '<div class="columns is-desktop">');
+  }, '<div class="columns">');
   mainContainerElem.innerHTML = todisplay;
 }
 
@@ -94,6 +97,8 @@ async function addToList() {
       data : params
     });
 
+    toasty("created");
+
     console.log(resp);
     tripsList.unshift({
       "idTrip": resp.data,
@@ -104,6 +109,8 @@ async function addToList() {
     displayCountries();
     modalSwitch();
   } catch (e) {
+
+    toasty("notcreated");
     console.error(e);
   }
 }
@@ -122,6 +129,8 @@ async function deleteOfList(id) {
       },
       data : params
     });
+
+    toasty("deleted");
     tripsList = tripsList.filter(obj => obj.idTrip !== id);
     displayCountries();
   } catch (e) {
@@ -145,6 +154,8 @@ async function editDate(id) {
       data : params
     });
 
+    toasty("edited");
+
     console.log(resp);
 
     tripsList.map(obj => {
@@ -163,27 +174,29 @@ async function toggleVisited(id) {
 
   let trip = tripsList.find(obj => obj.idTrip === id);
 
-    let params = "idTrip="+trip.idTrip+"&idCountry=" + trip.idCountry + "&date=" + trip.date + "&visited=" + !trip.visited + "&action=UPDATE";
-    try {
-      const resp = await axios({
-        method: "POST",
-        url: "home",
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data : params
-      });
+  let params = "idTrip="+trip.idTrip+"&idCountry=" + trip.idCountry + "&date=" + trip.date + "&visited=" + !trip.visited + "&action=UPDATE";
+  try {
+    const resp = await axios({
+      method: "POST",
+      url: "home",
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      data : params
+    });
 
-      console.log(resp);
+    console.log(resp);
 
-      tripsList.map(obj => {
-        if (obj.idTrip === id) {
-          obj.visited = !obj.visited;
-        }
-      });
+    tripsList.map(obj => {
+      if (obj.idTrip === id) {
+        obj.visited = !obj.visited;
+      }
+    });
 
-      displayCountries();
-      } catch (e) {
-        console.error(e);
-    }
+    toasty("edited");
+
+    displayCountries();
+  } catch (e) {
+    console.error(e);
+  }
 }

@@ -22,7 +22,7 @@ public class CountryManager implements CountryManagerLocal {
 
     @Override
     public List<Country> findAllCountries() {
-        List<Country> users = new ArrayList<>();
+        List<Country> users = new ArrayList<>(); //todo
 
         try {
             Connection connection = dataSource.getConnection();
