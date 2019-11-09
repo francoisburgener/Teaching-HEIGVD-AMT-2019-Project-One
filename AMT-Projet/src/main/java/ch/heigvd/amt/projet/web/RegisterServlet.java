@@ -17,11 +17,10 @@ import java.util.HashMap;
 public class RegisterServlet extends HttpServlet {
 
     @EJB
-    private UsersManagerLocal userManager;
+    UsersManagerLocal userManager;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html;charset=UTF-8");
         req.setAttribute("tabSelect", false);
         req.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(req, resp);
     }
@@ -35,6 +34,7 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmPassowrd = req.getParameter("confirm-password");
+
 
         HashMap<String,String> errors = new HashMap<>();
         if(username.trim().isEmpty()){
@@ -50,7 +50,7 @@ public class RegisterServlet extends HttpServlet {
             errors.put("email","Email cannot be empty");
         }
 
-        if(password.trim().isEmpty() && confirmPassowrd.trim().isEmpty() && password.equals(confirmPassowrd)){
+        if((password.trim().isEmpty() && confirmPassowrd.trim().isEmpty()) | !password.equals(confirmPassowrd)){
             errors.put("password","Passwords cannot be empty or not match");
         }
 
