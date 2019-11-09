@@ -37,12 +37,12 @@
 
 <!-- FORM -->
 
-<section class="section">
+<section class="">
   <div class="container">
-    <h1 class="title has-text-white" style="font-size:3.2em">
+    <h1 class="title has-text-white" style="font-size:4em">
       Sign in or register and start your journey
     </h1>
-    <h2 class="subtitle has-text-white" style="font-size:2em">
+    <h2 class="subtitle has-text-white" style="font-size:2.5em">
       Plan your travels to countries you wish to visit with simplicity.
     </h2>
     <div class="card" style="border-radius: 0.3em">

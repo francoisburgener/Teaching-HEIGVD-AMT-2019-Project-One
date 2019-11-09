@@ -12,5 +12,8 @@
             <property name="adminPassword">admin</property>
             <property name="adminHttps">true</property>
         </configuration>
+        <protocol type="Servlet 3.0">
+            <property name="host">localhost</property>
+        </protocol>
     </container>
 </arquillian>
