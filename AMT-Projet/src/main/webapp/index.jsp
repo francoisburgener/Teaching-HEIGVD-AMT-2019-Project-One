@@ -27,7 +27,7 @@
         <div class="container">
           <h1 class="title is-size-1"><span class="icon is-large"><i class="fas fa-map-marked-alt"></i></span>
             Countries todo</h1>
-          <h2 class="subtitle is-size-4 is-uppercase">
+          <h2 class="subtitle is-size-2 is-uppercase">
             Teaching-HEIGVD-AMT-2019-Project-One
           </h2>
         </div>

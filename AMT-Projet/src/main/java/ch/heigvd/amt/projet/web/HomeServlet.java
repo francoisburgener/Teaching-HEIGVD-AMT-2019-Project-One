@@ -25,7 +25,7 @@ public class HomeServlet extends HttpServlet {
     @EJB
     private CountryManagerLocal countryManager;
 
-    private final int SIZE = 8;
+    private final int SIZE = 4;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -46,7 +46,7 @@ public class HomeServlet extends HttpServlet {
         try {
             page = Integer.parseInt(pageString);
             page = page < 1 ? 1 : page;
-            offset =  (page-1)*8;
+            offset =  (page-1)*SIZE;
         }catch (NumberFormatException e){
             offset = 0;
         }

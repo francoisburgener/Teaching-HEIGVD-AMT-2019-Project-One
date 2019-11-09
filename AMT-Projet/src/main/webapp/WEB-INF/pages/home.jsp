@@ -9,11 +9,18 @@
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
   />
+
+  <script src="<c:url value="/resources/js/toasty.js" />" defer></script>
   <script src="<c:url value="/resources/js/home.js" />" defer></script>
 
   <link
           rel="stylesheet"
           href="<c:url value="/resources/css/autocomplete.css" />"
+  />
+
+  <link
+          rel="stylesheet"
+          href="<c:url value="/resources/css/toast.css" />"
   />
 
   <script
@@ -151,7 +158,7 @@
   </div>
 </section>
 
-<section class="section">
+<section class="section" style="min-height: 450px">
   <!-- Main -->
   <div id="main-container" class="container"></div>
 </section>
@@ -205,10 +212,21 @@
         { "idTrip": 6, "countryName": 'Brasil', "date": '2011-09-29', "visited": false },
         { "idTrip": 7, "countryName": 'Argentina', "date": '2011-09-29', "visited": false }
       ];*/
+
+  const reasonsList = [
+    {idReason: 1, reasonName: "Work"},
+    {idReason: 2, reasonName: "Language course"},
+    {idReason: 3, reasonName: "Adventure"},
+    {idReason: 4, reasonName: "Nature"},
+    {idReason: 5, reasonName: "City life"},
+    {idReason: 6, reasonName: "Art"},
+    {idReason: 7, reasonName: "Work"},
+  ];
+
   let countriesList = ${countries};
 
   function selectValue() {
-    var selectList = document.getElementById("country-select");
+    const selectList = document.getElementById("country-select");
 
     for(var i = 0; i < countriesList.length; ++i){
       let option = document.createElement("option");
@@ -222,6 +240,10 @@
   autocomplete(document.getElementById("search-input"), countriesList.map(obj => obj.name));
 
 </script>
+
+<!-- toast -->
+<div id="toasty">Some text some message..</div>
+
 
 </body>
 </html>
