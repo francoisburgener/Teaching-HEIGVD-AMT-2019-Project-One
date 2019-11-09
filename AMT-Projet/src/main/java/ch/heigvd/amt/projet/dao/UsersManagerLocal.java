@@ -11,8 +11,8 @@ import java.util.List;
 public interface UsersManagerLocal {
     List<User> findAllUsers();
     User findUserByUserame(String username);
-    void createUser(User user) throws DuplicateKeyException;
-    User updateUserInfo(User user) throws KeyNotFoundException;
+    boolean createUser(User user);
+    User updateUserInfo(User user);
     boolean updateUserPassword(User user);
     boolean signIn(String username, String password);
 }
