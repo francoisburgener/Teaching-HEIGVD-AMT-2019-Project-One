@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Profile - ${user.fullname}</title>
+  <title>Tops</title>
   <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css"
@@ -45,9 +45,9 @@
 <!-- TITLE -->
 <section>
   <div class="container">
-    <h1 class="title">Profile</h1>
+    <h1 class="title">Top visited countries</h1>
     <h2 class="subtitle">
-      Here you can edit your profile
+      Find inspiration in the most visited places in the world
     </h2>
   </div>
 </section>
@@ -59,7 +59,7 @@
       <!-- Left side -->
       <div class="level-left">
         <div class="level-item">
-          <a class="button is-primary is-outlined"
+          <a class="button" disabled
              href="${pageContext.request.contextPath}/top"
           >
                 <span class="icon">
@@ -87,10 +87,29 @@
 
 <section>
   <div class="container">
-
+      <div id="top" class="card">
+      </div>
   </div>
 </section>
 
-<script></script>
+<script>
+    let topsList = ${tops};
+
+    console.table(topsList);
+
+    const topElem = document.getElementById('top');
+    let i = 0;
+    topsList.map(e => {
+        const inside =
+            '<div class=\"card-content\">' +
+            '<p class=\"title\">'
+            + (++i) + '. ' + e.countryName +
+            '</p><p class="subtitle">'
+            + e.numberVisited +
+                '</p></div>'
+        topElem.innerHTML += inside;
+    });
+
+</script>
 </body>
 </html>
