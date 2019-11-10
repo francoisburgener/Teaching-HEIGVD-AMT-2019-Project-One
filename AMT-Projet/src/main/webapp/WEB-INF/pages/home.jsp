@@ -69,6 +69,22 @@
         </div>
         <p class="help">Pick some date for your travel</p>
       </div>
+
+      <div class="field">
+        <label class="label">Your objective</label>
+        <div class="field">
+          <div class="control has-icons-left">
+            <div class="select" style="width: 100%;">
+              <select id="reason-select" style="width: 100%;">
+              </select>
+            </div>
+            <div class="icon is-small is-left">
+              <i class="fas fa-globe"></i>
+            </div>
+            <p class="help">What is the purpose of this trip.</p>
+          </div>
+        </div>
+      </div>
     </section>
     <footer class="modal-card-foot">
       <button class="button is-success" onclick="addToList()">
@@ -193,50 +209,28 @@
   const htmlElem = document.getElementsByTagName('html');
 
   let modalState = false;
-  /*let countriesList = [
-    { id: 1, name: 'Deutschland', date: '2011-09-29', visited: true },
-    { id: 2, name: 'France', date: '2011-09-29', visited: false },
-    { id: 3, name: 'Netherlands', date: '2011-09-29', visited: false },
-    { id: 4, name: 'China', date: '2011-09-29', visited: true },
-    { id: 5, name: 'United States', date: '2011-09-29', visited: false },
-    { id: 6, name: 'Brasil', date: '2011-09-29', visited: false },
-    { id: 7, name: 'Argentina', date: '2011-09-29', visited: false }
-  ];*/
 
-  let tripsList = ${trips}; /*[
-        { "idTrip": 1, "countryName": 'Deutschland', "date": '2011-09-29', "visited": true },
-        { "idTrip": 2, "countryName": 'France', "date": '2011-09-29', "visited": false },
-        { "idTrip": 3, "countryName": 'Netherlands', "date": '2011-09-29', "visited": false },
-        { "idTrip": 4, "countryName": 'China', "date": '2011-09-29', "visited": true },
-        { "idTrip": 5, "countryName": 'United States', "date": '2011-09-29', "visited": false },
-        { "idTrip": 6, "countryName": 'Brasil', "date": '2011-09-29', "visited": false },
-        { "idTrip": 7, "countryName": 'Argentina', "date": '2011-09-29', "visited": false }
-      ];*/
 
-  const reasonsList = [
-    {idReason: 1, reasonName: "Work"},
-    {idReason: 2, reasonName: "Language course"},
-    {idReason: 3, reasonName: "Adventure"},
-    {idReason: 4, reasonName: "Nature"},
-    {idReason: 5, reasonName: "City life"},
-    {idReason: 6, reasonName: "Art"},
-    {idReason: 7, reasonName: "Work"},
-  ];
+  let tripsList = ${trips};
+
 
   let countriesList = ${countries};
+  let reasonsList = ${reasons};
 
-  function selectValue() {
-    const selectList = document.getElementById("country-select");
 
-    for(var i = 0; i < countriesList.length; ++i){
+  function selectValue(fieldName, list) {
+    const selectList = document.getElementById(fieldName);
+
+    for(var i = 0; i < list.length; ++i){
       let option = document.createElement("option");
-      option.value = countriesList[i].id;
-      option.text = countriesList[i].name;
+      option.value = list[i].id;
+      option.text = list[i].name;
       selectList.appendChild(option);
     }
   }
 
-  selectValue();
+  selectValue("country-select", countriesList);
+  selectValue("reason-select", reasonsList);
   autocomplete(document.getElementById("search-input"), countriesList.map(obj => obj.name));
 
 </script>

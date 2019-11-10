@@ -51,7 +51,7 @@ function displayCountries() {
                   </div>
                 </div>
                     <footer class="card-footer">
-                    <p class="card-footer-item">Reason: Work</p>
+                    <p class="card-footer-item">${reasonsList[obj.idReason - 1].name}</p>
                     </footer>
               </div>
               </div>`;
@@ -84,9 +84,14 @@ function modalSwitch() {
 async function addToList() {
   const e = document.getElementById('country-select');
   const countryChoice = e.options[e.selectedIndex].value;
+
+  const el = document.getElementById('reason-select');
+  const reasonChoice = el.options[el.selectedIndex].value;
+
   const dateChoice = document.getElementById('input-date').value;
 
-  let params = "idCountry=" + countryChoice + "&idReason="+ 1 + "&date=" + dateChoice + "&visited=" + false + "&action=POST";
+  let params = "idCountry=" + countryChoice + "&idReason="+ reasonChoice + "&date=" + dateChoice + "&visited=" + false + "&action=POST";
+
   try {
     const resp = await axios({
       method: "POST",
@@ -103,7 +108,7 @@ async function addToList() {
     tripsList.unshift({
       "idTrip": resp.data,
       "idCountry": countryChoice,
-      "idReason": 1,
+      "idReason": reasonChoice,
       "date": dateChoice,
       "visited": false
     });
