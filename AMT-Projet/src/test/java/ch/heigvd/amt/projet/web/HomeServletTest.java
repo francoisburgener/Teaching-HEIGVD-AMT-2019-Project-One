@@ -101,6 +101,7 @@ class HomeServletTest {
         when(request.getParameter("idCountry")).thenReturn("1");
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.createTrip(any())).thenReturn(1);
         when(response.getWriter()).thenReturn(printWriter);
 
@@ -121,6 +122,7 @@ class HomeServletTest {
         when(request.getParameter("idCountry")).thenReturn("1");
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.createTrip(any())).thenReturn(0);
 
         servlet.doPost(request, response);
@@ -138,6 +140,7 @@ class HomeServletTest {
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
         when(request.getParameter("idTrip")).thenReturn("1");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.deleteTrip(any())).thenReturn(true);
 
         servlet.doPost(request, response);
@@ -155,6 +158,7 @@ class HomeServletTest {
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
         when(request.getParameter("idTrip")).thenReturn("1");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.deleteTrip(any())).thenReturn(false);
 
         servlet.doPost(request, response);
@@ -172,6 +176,7 @@ class HomeServletTest {
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
         when(request.getParameter("idTrip")).thenReturn("1");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.updateTrip(any())).thenReturn(true);
 
         servlet.doPost(request, response);
@@ -189,6 +194,7 @@ class HomeServletTest {
         when(request.getParameter("date")).thenReturn("1999-09-09");
         when(request.getParameter("visited")).thenReturn("true");
         when(request.getParameter("idTrip")).thenReturn("1");
+        when(request.getParameter("idReason")).thenReturn("1");
         when(tripManager.updateTrip(any())).thenReturn(false);
 
         servlet.doPost(request, response);
