@@ -86,7 +86,7 @@ async function addToList() {
   const countryChoice = e.options[e.selectedIndex].value;
   const dateChoice = document.getElementById('input-date').value;
 
-  let params = "idCountry=" + countryChoice + "&date=" + dateChoice + "&visited=" + false + "&action=POST";
+  let params = "idCountry=" + countryChoice + "&idReason="+ 1 + "&date=" + dateChoice + "&visited=" + false + "&action=POST";
   try {
     const resp = await axios({
       method: "POST",
@@ -103,6 +103,7 @@ async function addToList() {
     tripsList.unshift({
       "idTrip": resp.data,
       "idCountry": countryChoice,
+      "idReason": 1,
       "date": dateChoice,
       "visited": false
     });

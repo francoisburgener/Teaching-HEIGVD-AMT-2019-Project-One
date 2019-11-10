@@ -41,9 +41,10 @@ public class TripManager implements TripManagerLocal {
                 int idTrip = rs.getInt("idTrip");
                 int idUser = rs.getInt("User_idUser");
                 int idCountry = rs.getInt("Country_idCountry");
+                int idReason = rs.getInt("Reason_idReason");
                 boolean visited = rs.getBoolean("visited");
                 String dateTrip = rs.getDate("date").toString();
-                trips.add(Trip.builder().idTrip(idTrip).idUser(idUser).idCountry(idCountry).date(dateTrip).visited(visited).build());
+                trips.add(Trip.builder().idTrip(idTrip).idUser(idUser).idCountry(idCountry).idReason(idReason).date(dateTrip).visited(visited).build());
             }
             connection.close();
         }catch (SQLException ex){
@@ -58,11 +59,12 @@ public class TripManager implements TripManagerLocal {
         int id = 0;
         try {
             Connection connection = dataSource.getConnection();
-            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Trip (User_idUser, Country_idCountry, visited, date) VALUES (?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO Trip (User_idUser, Country_idCountry,Reason_idReason, visited, date) VALUES (?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
             pstmt.setInt(1,trip.getIdUser());
             pstmt.setInt(2,trip.getIdCountry());
-            pstmt.setBoolean(3,trip.isVisited());
-            pstmt.setString(4,trip.getDate());
+            pstmt.setInt(3,trip.getIdReason());
+            pstmt.setBoolean(4,trip.isVisited());
+            pstmt.setString(5,trip.getDate());
             pstmt.executeUpdate();
             connection.close();
 

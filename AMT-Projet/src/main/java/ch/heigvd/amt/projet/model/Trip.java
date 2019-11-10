@@ -13,6 +13,7 @@ public class Trip {
     private int idTrip;
     private int idUser;
     private int idCountry;
+    private int idReason;
     private boolean visited;
     private String date;
 }

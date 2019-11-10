@@ -1,6 +1,7 @@
 package ch.heigvd.amt.projet.web;
 
 import ch.heigvd.amt.projet.dao.CountryManagerLocal;
+import ch.heigvd.amt.projet.dao.ReasonManagerLocal;
 import ch.heigvd.amt.projet.dao.TripManagerLocal;
 import ch.heigvd.amt.projet.model.Trip;
 import ch.heigvd.amt.projet.model.User;
@@ -24,6 +25,9 @@ public class HomeServlet extends HttpServlet {
 
     @EJB
     CountryManagerLocal countryManager;
+
+    @EJB
+    ReasonManagerLocal reasonManager;
 
     private final int SIZE = 4;
 
@@ -56,11 +60,13 @@ public class HomeServlet extends HttpServlet {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String trips = gson.toJson(tripManager.findAllTripByUsername(user.getUsername(),countryName, offset, SIZE));
         String countries = gson.toJson(countryManager.findAllCountries());
+        String reasons = gson.toJson(reasonManager.findAllReasons());
 
         request.setAttribute("countryName", !countryName.isEmpty() ? "&country-search=" + countryName : "");
         request.setAttribute("user", user);
         request.setAttribute("countries",countries);
         request.setAttribute("trips",trips);
+        request.setAttribute("reasons",reasons);
         request.setAttribute("page",page);
         request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
     }
@@ -70,13 +76,14 @@ public class HomeServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute("userSession");
         int idUser = user.getId(); // pour tous
         String idCountry = request.getParameter("idCountry"); // pour tous
+        String idReason = request.getParameter("idReason"); // pour tous
         String date = request.getParameter("date"); // pour tous
         Boolean visited = Boolean.parseBoolean(request.getParameter("visited")); // pour tous
         Trip trip = null;
         String idTrip;
         switch (action){
             case "POST":
-                trip = Trip.builder().idCountry(Integer.parseInt(idCountry)).idUser(idUser).date(date).visited(visited).build();
+                trip = Trip.builder().idCountry(Integer.parseInt(idCountry)).idReason(Integer.parseInt(idReason)).idUser(idUser).date(date).visited(visited).build();
                 int id = tripManager.createTrip(trip);
                 if(id != 0){
 
