@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.dao;
 
+import ch.heigvd.amt.projet.dto.visitedCountryDTO;
 import ch.heigvd.amt.projet.model.Country;
 import ch.heigvd.amt.projet.model.Trip;
 import ch.heigvd.amt.projet.model.User;
@@ -13,4 +14,6 @@ public interface TripManagerLocal {
     int createTrip(Trip trip);
     boolean deleteTrip(Trip trip);
     boolean updateTrip(Trip trip);
+
+    List<visitedCountryDTO> topTenVisiedCountry();
 }
