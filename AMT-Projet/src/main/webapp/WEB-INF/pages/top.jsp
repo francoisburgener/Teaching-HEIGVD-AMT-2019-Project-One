@@ -87,74 +87,7 @@
 
 <section>
   <div class="container">
-    <form
-            method="post"
-            action="profile"
-            id="register-form"
-            class="content"
-    >
-      <!-- username-->
-      <div class="field">
-        <label class="label">Username</label>
-        <div class="control has-icons-left has-icons-right Disabled">
-          <input
-                  name="username"
-                  class="input"
-                  type="text"
-                  value="${user.username}"
-                  disabled
-                  placeholder="Enter your username here"
-          />
-          <span class="icon is-small is-left">
-                <i class="fas fa-user"></i>
-              </span>
-          <span class="icon is-small is-right">
-                <i class="fas fa-check"></i>
-              </span>
-        </div>
-      </div>
 
-      <!-- fullname -->
-      <div class="field">
-        <label class="label">Fullname</label>
-        <div class="control ">
-          <input
-                  name="fullname"
-                  class="input"
-                  type="text"
-                  value="${user.fullname}"
-                  placeholder="Enter your full name here"
-          />
-        </div>
-      </div>
-
-      <!-- email -->
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <input
-                  name="email"
-                  class="input"
-                  type="email"
-                  value="${user.email}"
-                  placeholder="Email input"
-          />
-          <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-              </span>
-          <span class="icon is-small is-right">
-                <i class="fas fa-exclamation-triangle"></i>
-              </span>
-        </div>
-      </div>
-
-      <input type="hidden" name="editAction" value="editUserProfile">
-
-      <!-- button -->
-      <div class="control">
-        <button class="button is-link">Edit</button>
-      </div>
-    </form>
   </div>
 </section>
 
