@@ -1,5 +1,6 @@
 package ch.heigvd.amt.projet.dao;
 
+import ch.heigvd.amt.projet.dto.visitedCountryDTO;
 import ch.heigvd.amt.projet.model.Country;
 import ch.heigvd.amt.projet.model.Trip;
 import ch.heigvd.amt.projet.model.User;
@@ -27,11 +28,11 @@ public class TripManager implements TripManagerLocal {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(
                     "SELECT * FROM Trip as trip\n" +
-                    "LEFT JOIN User as user ON trip.User_idUser = user.idUser\n" +
-                    "LEFT JOIN Country as country ON trip.Country_idCountry = country.idCountry\n" +
-                    "WHERE user.username = ? AND  country.Name LIKE ? \n" +
-                    "ORDER BY trip.idTrip DESC\n" +
-                    "LIMIT " + offset + ", " + size + ";"
+                            "LEFT JOIN User as user ON trip.User_idUser = user.idUser\n" +
+                            "LEFT JOIN Country as country ON trip.Country_idCountry = country.idCountry\n" +
+                            "WHERE user.username = ? AND  country.Name LIKE ? \n" +
+                            "ORDER BY trip.idTrip DESC\n" +
+                            "LIMIT " + offset + ", " + size + ";"
             );
             pstmt.setString(1,username);
             pstmt.setString(2,countryName + "%");
@@ -128,4 +129,36 @@ public class TripManager implements TripManagerLocal {
 
         return check;
     }
+
+    @Override
+    public List<visitedCountryDTO> topTenVisiedCountry() {
+        List<visitedCountryDTO> visitedCountryDTOS = new ArrayList<>();
+        try {
+            Connection connection = dataSource.getConnection();
+            PreparedStatement pstmt = connection.prepareStatement("SELECT country.Name, count(*)\n" +
+                    "FROM Trip as trip\n" +
+                    "LEFT JOIN Country as country ON trip.Country_idCountry = country.idCountry\n" +
+                    "WHERE trip.visited = 1\n" +
+                    "GROUP BY trip.Country_idCountry\n" +
+                    "ORDER BY count(*) DESC\n" +
+                    "LIMIT 10;");
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()){
+                String countryName = rs.getString("Name");
+                int count = rs.getInt("count(*)");
+
+                visitedCountryDTOS.add(visitedCountryDTO.builder().countryName(countryName).numberVisited(count).build());
+            }
+
+            connection.close();
+
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+        }
+        return visitedCountryDTOS;
+
     }
+}
