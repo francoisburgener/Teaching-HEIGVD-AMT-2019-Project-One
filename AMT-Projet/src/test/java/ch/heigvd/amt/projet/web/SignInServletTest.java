@@ -67,6 +67,7 @@ class SignInServletTest {
         servlet.doPost(request,response);
         verify(usersManager,atLeastOnce()).signIn("galiaker","toto");
         verify(usersManager,atLeastOnce()).findUserByUserame("galiaker");
+        verify(response, atLeastOnce()).setStatus(HttpServletResponse.SC_OK);
         verify(response,atLeastOnce()).sendRedirect(request.getContextPath() + "/home");
     }
 
@@ -82,6 +83,7 @@ class SignInServletTest {
         verify(usersManager,atLeastOnce()).signIn("galiaker","toto");
         verify(request,atLeastOnce()).setAttribute(eq("error"),eq("Invalid Login or password"));
         verify(request,atLeastOnce()).setAttribute(eq("tabSelect"),eq(true));
+        verify(response, atLeastOnce()).setStatus(HttpServletResponse.SC_FORBIDDEN);
         verify(requestDispatcher, atLeastOnce()).forward(request, response);
 
 

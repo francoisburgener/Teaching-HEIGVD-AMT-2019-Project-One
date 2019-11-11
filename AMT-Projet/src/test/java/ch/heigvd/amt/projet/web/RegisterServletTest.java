@@ -65,12 +65,12 @@ class RegisterServletTest {
         when(usersManager.createUser(any(User.class))).thenReturn(true);
 
         servlet.doPost(request,response);
-
+        verify(response, atLeastOnce()).setStatus(HttpServletResponse.SC_OK);
         verify(response,atLeastOnce()).sendRedirect(request.getContextPath() + "/signin");
     }
 
     @Test
-    void doPostShouldRegisterErrorsField() throws ServletException, IOException {
+    void doPostShouldNotRegisterIfEmptyFields() throws ServletException, IOException {
         when(request.getParameter("username")).thenReturn("");
         when(request.getParameter("fullname")).thenReturn("");
         when(request.getParameter("email")).thenReturn("");
@@ -81,12 +81,13 @@ class RegisterServletTest {
         servlet.doPost(request,response);
 
         verify(request,atLeastOnce()).setAttribute(eq("tabSelect"),eq(false));
+        verify(response, atLeastOnce()).setStatus(HttpServletResponse.SC_BAD_REQUEST);
         verify(requestDispatcher).forward(request,response);
     }
 
     //TODO remove or to make it work
     @Test
-    void doPostShouldRegisterFailed() throws ServletException, IOException {
+    void doPostShouldNotRegisterInCaseOfSQLError() throws ServletException, IOException {
         when(request.getParameter("username")).thenReturn("galiaker");
         when(request.getParameter("fullname")).thenReturn("François Burgener");
         when(request.getParameter("email")).thenReturn("francois.burgener@hotmail.fr");
@@ -99,6 +100,7 @@ class RegisterServletTest {
 
         verify(request,atLeastOnce()).setAttribute(eq("sqlError"),eq("SQL ERROR : This username is already used"));
         verify(request,atLeastOnce()).setAttribute(eq("tabSelect"),eq(false));
+        verify(response, atLeastOnce()).setStatus(HttpServletResponse.SC_CONFLICT);
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
 

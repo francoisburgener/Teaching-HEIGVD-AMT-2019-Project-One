@@ -30,10 +30,12 @@ public class SignInServlet extends HttpServlet {
         if(userManager.signIn(username,password)) {
             HttpSession session = request.getSession();
             session.setAttribute("userSession",userManager.findUserByUserame(username));
+            response.setStatus(HttpServletResponse.SC_OK);
             response.sendRedirect(request.getContextPath() + "/home");
         }else {
             request.setAttribute("error","Invalid Login or password");
             request.setAttribute("tabSelect",true);
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             request.getRequestDispatcher("/WEB-INF/pages/signin.jsp").forward(request, response);
         }
 
