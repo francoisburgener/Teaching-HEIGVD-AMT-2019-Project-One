@@ -17,6 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
+/**
+ * Main page of our application
+ */
 @WebServlet( urlPatterns = "/home", name = "HomeServlet")
 public class HomeServlet extends HttpServlet {
 
@@ -29,8 +33,14 @@ public class HomeServlet extends HttpServlet {
     @EJB
     ReasonManagerLocal reasonManager;
 
+    //Size of the pagination
     private final int SIZE = 4;
 
+    /**
+     * Method GET to show the home page with all our trips
+     * @param request http request
+     * @param response http response
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         HttpSession session = request.getSession();
@@ -71,6 +81,12 @@ public class HomeServlet extends HttpServlet {
         request.getRequestDispatcher("/WEB-INF/pages/home.jsp").forward(request, response);
     }
 
+
+    /**
+     * Method POST to create/update and delete a trip.
+     * @param request http request
+     * @param response http response
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         User user = (User) request.getSession().getAttribute("userSession");

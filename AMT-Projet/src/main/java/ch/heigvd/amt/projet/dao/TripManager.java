@@ -20,6 +20,14 @@ public class TripManager implements TripManagerLocal {
     @Resource(lookup = "jdbc/amt-db")
     private DataSource dataSource;
 
+    /**
+     * Method to get all trips of our database by the username
+     * @param username username of the user
+     * @param countryName string for searching by country
+     * @param offset offset for the pagination
+     * @param size size of our pagination
+     * @return list of trip
+     */
     @Override
     public List<Trip> findAllTripByUsername(String username, String countryName , int offset, int size) {
         List<Trip> trips = new ArrayList<>();
@@ -56,6 +64,11 @@ public class TripManager implements TripManagerLocal {
         return trips;
     }
 
+    /**
+     * Methode to create a trip
+     * @param trip trip we want to create
+     * @return id of the last trip created
+     */
     @Override
     public int createTrip(Trip trip) {
         int id = 0;
@@ -84,6 +97,11 @@ public class TripManager implements TripManagerLocal {
         return id;
     }
 
+    /**
+     * Methode to delete trip
+     * @param trip trip we want to delete
+     * @return true if success and false otherwise
+     */
     @Override
     public boolean deleteTrip(Trip trip) {
 
@@ -107,6 +125,11 @@ public class TripManager implements TripManagerLocal {
         return check;
     }
 
+    /**
+     * Method to update a trip (visited and date)
+     * @param trip trip info we want to update
+     * @return true if success and false otherwise
+     */
     @Override
     public boolean updateTrip(Trip trip) {
 
@@ -133,6 +156,10 @@ public class TripManager implements TripManagerLocal {
         return check;
     }
 
+    /**
+     * Method to get the top 10 visited country
+     * @return List of top ten visited country
+     */
     @Override
     public List<visitedCountryDTO> topTenVisiedCountry() {
         List<visitedCountryDTO> visitedCountryDTOS = new ArrayList<>();

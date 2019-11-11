@@ -14,26 +14,37 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
 
+
+//Class to manage the profile of a user
 @WebServlet(urlPatterns = "/home/profile", name = "ProfileServlet")
 public class ProfileServlet extends HttpServlet {
 
     @EJB
     UsersManagerLocal userManager;
 
+    /**
+     * Method GET to update the info of a user
+     * @param request http request
+     * @param response http response
+     */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        //We get the session user
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("userSession");
 
+        //We get the action of the post
         String editAction = request.getParameter("editAction");
 
         switch (editAction) {
             case "editUserProfile":
 
+                //Field you want to modify
                 String fullname = request.getParameter("fullname");
                 String email = request.getParameter("email");
                 HashMap<String, String> errors = new HashMap<>();
 
+                //Check empty field
                 if (fullname.trim().isEmpty()) {
                     errors.put("fullname", "Fullname cannot be empty");
                 }
@@ -50,20 +61,21 @@ public class ProfileServlet extends HttpServlet {
                             .email(email)
                             .build();
 
+                    //update the user
                     if(userManager.updateUserInfo(newUser) != null){
+                        //Regenerate the session user
                         request.getSession().invalidate();
                         request.getSession().setAttribute("userSession",newUser);
+
                         response.sendRedirect(request.getContextPath() + "/home/profile");
-                    }else{
-                        //TODO error;
                     }
                 } else {
+                    
+                    //Set the error to the profile page
                     request.setAttribute("errors", errors);
                     request.getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(request, response);
                 }
 
-                break;
-            case "editPassword":
                 break;
         }
 
@@ -71,6 +83,11 @@ public class ProfileServlet extends HttpServlet {
 
     }
 
+    /**
+     * Method GET to show the update form for the user info
+     * @param request http request
+     * @param response http response
+     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("userSession");

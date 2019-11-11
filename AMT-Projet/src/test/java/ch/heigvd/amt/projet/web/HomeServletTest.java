@@ -66,32 +66,6 @@ class HomeServletTest {
     }
 
 
-    /*@Test Can't mock final class (Gson)
-    public void doGetShouldfindAllTripByUserNameAndSearch() throws ServletException, IOException {
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(mock(Gson.class).getClass(), new Gson()).create();
-
-        when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("userSession")).thenReturn(user);
-        when(request.getParameter("page")).thenReturn("1");
-        when(request.getParameter("country-search")).thenReturn("France");
-        when(tripManager.findAllTripByUsername(user.getUsername(),"France",0,8)).thenReturn(tripList);
-        when(countryManager.findAllCountries()).thenReturn(countryList);
-        when(gson.toJson(tripList)).thenReturn(anyString());
-        when(gson.toJson(countryList)).thenReturn(anyString());
-
-        when(request.getRequestDispatcher("/WEB-INF/pages/home.jsp")).thenReturn(requestDispatcher);
-
-        servlet.doGet(request,response);
-
-        verify(request,atLeastOnce()).setAttribute("coutryName","&country-search=France");
-        verify(request,atLeastOnce()).setAttribute("user",user);
-        verify(request,atLeastOnce()).setAttribute("countries",countryList);
-        verify(request,atLeastOnce()).setAttribute("trips",tripList);
-        verify(request,atLeastOnce()).setAttribute("page",1);
-        verify(requestDispatcher,atLeastOnce()).forward(request,response);
-    }*/
-
     @Test
     public void doPostShouldCreateTripStatusOK() throws ServletException, IOException {
         when(request.getSession()).thenReturn(httpSession);

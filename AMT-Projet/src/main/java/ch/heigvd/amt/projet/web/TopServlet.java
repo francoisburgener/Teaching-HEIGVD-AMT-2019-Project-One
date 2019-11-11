@@ -21,6 +21,11 @@ public class TopServlet extends HttpServlet {
     @EJB
     private TripManagerLocal tripManager;
 
+    /**
+     * Method GET to show the top ten visited country
+     * @param request Http request
+     * @param response http response
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");

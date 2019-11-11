@@ -65,23 +65,9 @@ class ProfileServletTest {
         servlet.doPost(request,response);
 
         verify(httpSession,atLeastOnce()).invalidate();
-        //verify(httpSession,atLeastOnce()).setAttribute(eq("userSession"),eq(user)); //TODO how to fix
         verify(response,atLeastOnce()).sendRedirect(request.getContextPath() + "/home/profile");
     }
 
-    /*@Test
-    public void doPostShouldEditProfilFailure() throws ServletException, IOException {
-        when(request.getSession()).thenReturn(httpSession);
-        when(httpSession.getAttribute("userSession")).thenReturn(any(User.class));
-        when(request.getParameter("editAction")).thenReturn("editUserProfile");
-        when(request.getParameter("fullname")).thenReturn("François Burgener");
-        when(request.getParameter("email")).thenReturn("francois.burgener@hotmail.fr");
-        when(usersManager.updateUserInfo(any(User.class))).thenReturn(null);
-
-        servlet.doPost(request,response);
-
-        //TODO do something
-    }*/
 
     @Test
     public void doPostShouldEditProfilEmptyField() throws ServletException, IOException {
@@ -94,7 +80,6 @@ class ProfileServletTest {
 
         servlet.doPost(request,response);
 
-        //verify(request,atLeastOnce()).setAttribute(eq("errors"),eq(errors));//TODO how to fix 
         verify(requestDispatcher,atLeastOnce()).forward(request,response);
     }
 }
