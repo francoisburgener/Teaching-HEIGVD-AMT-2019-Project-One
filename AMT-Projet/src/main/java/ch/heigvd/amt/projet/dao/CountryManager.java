@@ -22,7 +22,7 @@ public class CountryManager implements CountryManagerLocal {
 
     @Override
     public List<Country> findAllCountries() {
-        List<Country> users = new ArrayList<>(); //todo
+        List<Country> countries = new ArrayList<>(); //todo
 
         try {
             Connection connection = dataSource.getConnection();
@@ -33,12 +33,13 @@ public class CountryManager implements CountryManagerLocal {
             while (rs.next()){
                 int id = rs.getInt("idCountry");
                 String name = rs.getString("name");
-                users.add(Country.builder().id(id).name(name).build());
+                countries.add(Country.builder().id(id).name(name).build());
             }
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return null;
         }
-        return users;
+        return countries;
     }
 }

@@ -38,6 +38,7 @@ public class ReasonManager implements ReasonManagerLocal {
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return null;
         }
         return reasons;
     }

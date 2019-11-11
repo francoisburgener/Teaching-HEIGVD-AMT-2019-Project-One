@@ -52,6 +52,7 @@ public class UsersManager implements UsersManagerLocal{
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return null;
         }
         return users;
     }

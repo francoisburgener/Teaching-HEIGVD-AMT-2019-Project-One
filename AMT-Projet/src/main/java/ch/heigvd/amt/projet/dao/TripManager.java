@@ -50,6 +50,7 @@ public class TripManager implements TripManagerLocal {
             connection.close();
         }catch (SQLException ex){
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return null;
         }
 
         return trips;
@@ -74,8 +75,10 @@ public class TripManager implements TripManagerLocal {
                 id = rs.getInt(1);
             }
 
+            connection.close();
         } catch (SQLException ex) {
             Logger.getLogger(UsersManager.class.getName()).log(Level.SEVERE,null,ex);
+            return 0;
         }
 
         return id;
