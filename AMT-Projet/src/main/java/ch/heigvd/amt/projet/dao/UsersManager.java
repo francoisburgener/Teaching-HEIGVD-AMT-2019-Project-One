@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+//DAO to manage the user
 @Stateless
 public class UsersManager implements UsersManagerLocal{
 
@@ -27,6 +29,10 @@ public class UsersManager implements UsersManagerLocal{
     @EJB
     IAuthenticationService authenticationService;
 
+    /**
+     * Method to get all users of our database
+     * @return a list of user
+     */
     @Override
     public List<User> findAllUsers() {
 
@@ -57,6 +63,12 @@ public class UsersManager implements UsersManagerLocal{
         return users;
     }
 
+
+    /**
+     * Method to find user in database by their username
+     * @param username username to find
+     * @return retour the user find in the database
+     */
     @Override
     public User findUserByUserame(String username) {
         User user = null;
@@ -81,6 +93,11 @@ public class UsersManager implements UsersManagerLocal{
         }
     }
 
+    /**
+     * Method to create a user in the database
+     * @param user the user we want to create
+     * @return true if success, false otherwise
+     */
     @Override
     public boolean createUser(User user) {
         try {
@@ -101,6 +118,11 @@ public class UsersManager implements UsersManagerLocal{
         return true;
     }
 
+    /**
+     * Method to update user info (fullname and email) in the database
+     * @param user info user we want to update
+     * @return the new user updated
+     */
     @Override
     public User updateUserInfo(User user){
 
@@ -122,16 +144,22 @@ public class UsersManager implements UsersManagerLocal{
         return user;
     }
 
+    /**
+     * Methode to update the password of a user
+     * @param user info user we want to update
+     * @return
+     */
     @Override
     public boolean updateUserPassword(User user) {
         try {
             Connection connection = dataSource.getConnection();
             PreparedStatement pstmt = connection.prepareStatement("UPDATE User SET password = ? WHERE User.idUser = ?;");
 
-            pstmt.setString(1,user.getPassword());
+            String hashedPassword = authenticationService.hashPassword(user.getPassword());
+            pstmt.setString(1,hashedPassword);
             pstmt.setInt(2,user.getId());
-
-
+            pstmt.executeUpdate();
+            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
@@ -141,6 +169,12 @@ public class UsersManager implements UsersManagerLocal{
     }
 
 
+    /**
+     * Method to sign in a user (check if hashed password match with the plain text password)
+     * @param username username of the user
+     * @param password plain text password of the user
+     * @return true if success and false otherwise
+     */
     @Override
     public boolean signIn(String username, String password) {
 
