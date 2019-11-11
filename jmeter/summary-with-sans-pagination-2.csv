@@ -1,0 +1,4 @@
+Label,# Samples,Average,Min,Max,Std. Dev.,Error %,Throughput,Received KB/sec,Sent KB/sec,Avg. Bytes
+HTTP Request Sign in,1,19073,19073,19073,0.00,0.000%,.05243,687.81,0.02,13433467.0
+HTTP Request home page,1,6451,6451,6451,0.00,0.000%,.15501,2033.48,0.03,13432844.0
+TOTAL,2,12762,6451,19073,6311.00,0.000%,.07836,1027.92,0.02,13433155.5
