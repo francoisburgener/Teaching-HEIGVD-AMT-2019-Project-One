@@ -3,3 +3,4 @@ create-jdbc-connection-pool --datasourceclassname com.mysql.cj.jdbc.MysqlDataSou
 create-jdbc-resource --connectionpoolid pool_amt jdbc/amt-db
 
 deploy /tmp/countriestodo.war
+
